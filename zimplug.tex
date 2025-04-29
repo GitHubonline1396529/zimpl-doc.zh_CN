@@ -1035,19 +1035,28 @@ set IN          := inter <j> in J : P[j]; # empty!
 \label{ssec:parameters}
 %------------------------------------------------------------------------------
 
-Parameters are the way to define constants within \zimpl. They can be
-declared with or without an index set. Without index a parameter is
-just a single value which is either a number or a string. For indexed
-parameters there is one value for each member of the set. It is
-possible to declare a \emph{default} value.
+参数（Parameter）是\zimpl 中定义常数的一种方式。参数既可以带有索引集合，
+也可以不带索引。没有索引的参数只是一个单独的值，可以是数字或字符串；
+带索引的参数则为索引集合中的每个元素指定一个对应的值。此外，还可以为参数
+声明一个\emph{default}值。
+% Parameters are the way to define constants within \zimpl. They can be
+% declared with or without an index set. Without index a parameter is
+% just a single value which is either a number or a string. For indexed
+% parameters there is one value for each member of the set. It is
+% possible to declare a \emph{default} value.
 
-Parameters are declared in the following way:
-The keyword \code{param} is followed by the name of the parameter
-optionally followed by the index set in square brackets.
-Then, after the assignment operator, there is a list of pairs. The first element of each
-pair is a tuple from the index set, while the second element is the value of
-the parameter for this index. If there is only a single value given,
-it will be assigned to all members of the parameter.
+参数的声明方式如下所示：
+使用关键字\code{param}，紧跟参数名，并可以选择是否在方括号中给出索引集合。
+接着在赋值符号之后，给出一个键值对列表。每对元素的第一个分量是来自索引集合
+的元组，第二个分量则是该索引对应的参数值。如果只给出一个单独的值，
+则该值会被赋给参数的所有索引成员。
+% Parameters are declared in the following way:
+% The keyword \code{param} is followed by the name of the parameter
+% optionally followed by the index set in square brackets.
+% Then, after the assignment operator, there is a list of pairs. The first element of each
+% pair is a tuple from the index set, while the second element is the value of
+% the parameter for this index. If there is only a single value given,
+% it will be assigned to all members of the parameter.
 
 \subsubsection{示例}
 {\small
@@ -1067,26 +1076,37 @@ param x[<i> in { 1 .. 8 } with i mod 2 == 0] := 3 * i;
 \end{verbatim}
 }
 \noindent
+赋值并不需要是完整的。在这个例子当中，并没有给出参数\code{w}下的索引
+\code{$<$3,7,"z"$>$}对应的数值。只要该索引值在模型中从未被引用，
+这种做法就是允许的。
+% \noindent
 Assignments do not need to be complete.  In the example, no value is
 given for index \code{$<$3,7,"z"$>$} of parameter \code{w}. This is
 correct as long as it is never referenced.
 
-\subsubsection{Parameter tables}
-It is possible to initialize multi-dimensional indexed parameters from
-tables. This is especially useful for two-dimensional parameters.
-The data is put in a table structure with \code{$|$} signs on each
-margin. Then a headline with column indices has to be added, and one index
-for each row of the table is needed. The column index has to be
-one-dimensional, but the row index can be
-multi-dimensional. The complete index for the entry is built by
-appending the column index to the row index.
-The entries are separated by commas. Any valid expression is
-allowed here. As can be seen in the third example below, it is
-possible to add a list of entries after the table.
+\subsubsection{参数表}
+% \subsubsection{Parameter tables}
+可以通过表格的方式初始化多维索引参数。这在处理二维参数时尤其有用。
+数据应组织为表格结构，表格边界由\code{$|$} 符号标示。随后需提供一行作为表头，
+表头包含列索引；此外，每一行也必须对应一个行索引。列索引必须是一维的，
+而行索引则可以是多维的。每个条目的完整索引由“行索引”与“列索引”拼接而成。
+表中的各项以逗号分隔，并且允许使用任意合法表达式。如下面的第三个示例所示，
+在表格之后还可以追加一个由条目组成的列表。
+% It is possible to initialize multi-dimensional indexed parameters from
+% tables. This is especially useful for two-dimensional parameters.
+% The data is put in a table structure with \code{$|$} signs on each
+% margin. Then a headline with column indices has to be added, and one index
+% for each row of the table is needed. The column index has to be
+% one-dimensional, but the row index can be
+% multi-dimensional. The complete index for the entry is built by
+% appending the column index to the row index.
+% The entries are separated by commas. Any valid expression is
+% allowed here. As can be seen in the third example below, it is
+% possible to add a list of entries after the table.
 
 
 
-\subsubsection{Examples}
+\subsubsection{示例}
 {\small
 \begin{verbatim}
 set I := { 1 .. 10 };
@@ -1107,7 +1127,9 @@ param k[I*I] :=  |  7,  8,  9 |
                |5| 12, 13, 14 |, <1,2> 17, <3,4> 99;
 \end{verbatim}
 }
-\noindent The last example is equivalent to:
+
+\noindent 最后的这个示例等同于：
+% \noindent The last example is equivalent to:
 {\small
 \begin{verbatim}
 param k[I*I] := <4,7> 89, <4,8> 67, <4,9> 55, <5,7> 12,
@@ -1116,32 +1138,48 @@ param k[I*I] := <4,7> 89, <4,8> 67, <4,9> 55, <5,7> 12,
 }
 
 %------------------------------------------------------------------------------
-\subsection{Initializing sets and parameters from a file}\label{initfromfile}
+\subsection{从文件读取集合与参数}\label{initfromfile}
+% \subsection{Initializing sets and parameters from a file}%
+% \label{initfromfile}
 %------------------------------------------------------------------------------
-It is possible to load the values for a set or a parameter from a
-file. The syntax is:
+可以从文件中读取集合或者参数。其语法是：
+% It is possible to load the values for a set or a parameter from a
+% file. The syntax is:
 
 \smallskip
-\code{read} \emph{filename} \code{as} \emph{template}
+\code{read} \emph{<文件名>} \code{as} \emph{<模板名>}
 [\code{skip} \emph{n}] [\code{use} \emph{n}]
 [\code{match} \emph{s}] [\code{comment} \emph{s}]
+% \code{read} \emph{filename} \code{as} \emph{template}
+% [\code{skip} \emph{n}] [\code{use} \emph{n}]
+% [\code{match} \emph{s}] [\code{comment} \emph{s}]
 
 \smallskip
-\noindent\emph{filename} is the name of the file to read.
-\emph{template} is a string with a template for the tuples to
-generate. Each input line from the file is split into fields. The
-splitting is done according to the following rules:
-All leading and trailing space and tab characters in the line are removed.
-Whenever a space, tab, comma, semicolon or colon is encountered
-a new field is started. Text that is enclosed in double quotes is not
-split and the quotes are always removed. When a field is split all space
-and tab characters around the splitting point are removed.
-If the split is
-due to a comma, semicolon or colon, each occurrence of these
-characters starts a new field.
+\noindent\emph{filename} 是要读取的文件名。
+\emph{template} 是一个用于生成元组的模板字符串。
+来自每一行输入会被拆分为若干个字段。字段的拆分遵循以下规则：
+行首与行尾的空格与制表符会被去除；
+每当遇到空格、制表符、逗号、分号或冒号时，都会开始一个新字段；
+被双引号包围的文本不会被拆分，并且双引号会被自动移除；
+若某个字段处发生拆分，则拆分点两侧的空格与制表符也会被移除；
+若拆分是由逗号、分号或冒号引起的，那么每出现一次该符号就会新建一个字段。
+% \noindent\emph{filename} is the name of the file to read.
+% \emph{template} is a string with a template for the tuples to
+% generate. Each input line from the file is split into fields. The
+% splitting is done according to the following rules:
+% All leading and trailing space and tab characters in the line are removed.
+% Whenever a space, tab, comma, semicolon or colon is encountered
+% a new field is started. Text that is enclosed in double quotes is not
+% split and the quotes are always removed. When a field is split all space
+% and tab characters around the splitting point are removed.
+% If the split is
+% due to a comma, semicolon or colon, each occurrence of these
+% characters starts a new field.
 
-\subsubsection{Examples}
-All these lines have three fields:
+\subsubsection{示例}
+% \subsubsection{Examples}
+如下的每一行输入都包含三个字段：%
+% All these lines have three fields:
 {\small
 \begin{verbatim}
 Hallo;12;3
