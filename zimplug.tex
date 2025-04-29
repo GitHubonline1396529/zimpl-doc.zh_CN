@@ -492,7 +492,7 @@ param c[A] := read "arcs.txt"  as "<1s,2s>3n";
 \end{itemize}
 %
 每一句语句都以一个分号结尾。
-除了字符串以外，\code{\#}符号之后到这行末尾的所有内容都会被视作注释忽略。
+除了字符串以外，“\code{\#}”符号之后到这行末尾的所有内容都会被视作注释忽略。
 如果一行以单词\code{include}开头，后跟有带双引号的文件名，则会读取并处理该
 文件，而不是该行。
 % Each statement ends with a semicolon.
@@ -679,10 +679,10 @@ $a$ 必须为非负整数\\
 
 % \subsubsection{String expressions}
 \subsubsection{字符串表达式}
-字符串由双引号\code{"}包裹，形如\code{"Hello Keiken"}。两个字符串可以通过
-\code{+}运算符拼接，例如\code{"Hello " + "Keiken"}将会得到\code{"Hello
+字符串由双引号“\code{"}”包裹，形如\code{"Hello Keiken"}。两个字符串可以通过“
+\code{+}”运算符拼接，例如，如果使用\code{"Hello " + "Keiken"}将会得到\code{"Hello
   Keiken"}。函数\code{substr(string, begin, length)}可用于提取字符串中的特
-定部分。\code{begin}是要使用的第一个字符，计数按照第一个字符从0开始。要提
+定部分。其中，\code{begin}是要使用的第一个字符，计数按照第一个字符从0开始。要提
 取的字符串长度可通过\code{length}函数来确定。
 % A string is delimited by double quotation marks \code{"},
 % \eg\ \code{"Hallo Keiken"}. Two strings can be concatenated using the
@@ -747,7 +747,7 @@ $a$ 必须为非负整数\\
 
 元组是具有固定维度的有序矢量，分量为数值或字符串类型。集合内可包含（有限多
 个）元组。每个元组在集合中都是不重复的。在\zimpl 中所有集合都是内部有序的
-，但没有特定的顺序。集合通过花括号来包裹，形如\code{\{}和\code{\}}。一个集
+，但没有特定的顺序。集合通过花括号来包裹，形如“\code{\{}”和“\code{\}}”。一个集
 合中的所有元组必须具有相同个数的分量。对于一个特定集合中的所有元组，它们各
 自的第$n$个元素的数据类型必须相同，也就是说它们必须全都是数值或者全都是字
 符串。元组的定义通过尖括号$<$和$>$包裹，示例如\code{$<$1,2,"x"$>$}。各个分
@@ -779,7 +779,7 @@ $a$ 必须为非负整数\\
 (placeholders) 组成。这些占位符会被相应元组中各分量的值所替代。例如，一个
 由二维元组组成的集合$S$可以通过\code{<a,b> in S}来引用。如果模板元组中的某
 些占位符被赋予了实际值，那么只有那些与这些值匹配的元组会被选取 (extracted) 
-。例如，\code{<1,b> in S}只会选取第一个分量为\code{1}的元组。需要注意的是，
+。例如，\code{<1,b> in S}只会选取第一个分量为“\code{1}”的元组。需要注意的是，
 如果占位符的名称与已定义的参数、集合或变量的名称相同，那么这些名称会被替换
 为相应的值。这可能会导致错误，或者被解释为实际的值。
 % Sets are referenced by the use of a \emph{template} tuple, consisting
@@ -961,7 +961,7 @@ set W := argmin(3) <i,j> in B*B : i+j;
 % \subsubsection{Indexed sets}
 \label{sec:indexed-sets}
 可以使用一个集合对另一个集合进行索引，从而得到一个“集合的集合”。
-索引集合的访问方式是在集合名后加上方括号 \code{[} 和 \code{]}，例如 \code{S[7]}。
+索引集合的访问方式是在集合名后加上方括号“\code{[}”和“\code{]}”，例如 \code{S[7]}。
 表~\ref{tab:zimpl-idxset-fun} 列出了可用的函数。  
 对索引集合的赋值有三种方式：  
 \begin{itemize}
@@ -1076,18 +1076,18 @@ param x[<i> in { 1 .. 8 } with i mod 2 == 0] := 3 * i;
 \end{verbatim}
 }
 \noindent
-赋值并不需要是完整的。在这个例子当中，并没有给出参数\code{w}下的索引
+赋值并不需要是完整的。在这个例子当中，并没有给出参数“\code{w}”下的索引
 \code{$<$3,7,"z"$>$}对应的数值。只要该索引值在模型中从未被引用，
 这种做法就是允许的。
 % \noindent
-Assignments do not need to be complete.  In the example, no value is
-given for index \code{$<$3,7,"z"$>$} of parameter \code{w}. This is
-correct as long as it is never referenced.
+% Assignments do not need to be complete.  In the example, no value is
+% given for index \code{$<$3,7,"z"$>$} of parameter \code{w}. This is
+% correct as long as it is never referenced.
 
 \subsubsection{参数表}
 % \subsubsection{Parameter tables}
 可以通过表格的方式初始化多维索引参数。这在处理二维参数时尤其有用。
-数据应组织为表格结构，表格边界由\code{$|$} 符号标示。随后需提供一行作为表头，
+数据应组织为表格结构，表格边界由“\code{|}”符号标示。随后需提供一行作为表头，
 表头包含列索引；此外，每一行也必须对应一个行索引。列索引必须是一维的，
 而行索引则可以是多维的。每个条目的完整索引由“行索引”与“列索引”拼接而成。
 表中的各项以逗号分隔，并且允许使用任意合法表达式。如下面的第三个示例所示，

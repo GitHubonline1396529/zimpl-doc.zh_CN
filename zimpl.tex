@@ -126,7 +126,19 @@ pdfkeywords={数学建模语言, 数学规划, 优化, 代数建模语言}
 \newcommand{\cplex}{{\sc cplex}\xspace}
 \newcommand{\scip}{{\sc scip}\xspace}
 \newcommand{\sos}{{\sc sos}\xspace}
-\newcommand{\code}[1]{{\tt #1}\xspace}
+
+% \newcommand{\code}[1]{{\tt #1}\xspace}
+% If an in-line code box only contains one single symbol, 
+% it may not be clearly visible within the lines of Chinese text. 
+% Therefore, we need to color it.
+\newcommand\mystrut{\rule[-1pt]{0pt}{.8em}}
+\usepackage{tcolorbox} % To support inline code.
+% \newtcbox{\codetc}{on line, boxrule=0pt, boxsep=0pt, top=2pt,
+% left=2pt, bottom=2pt, right=2pt, colback=magenta!7.5, colframe=white,
+% fontupper={\ttfamily\mystrut}}
+% \newcommand{\code}[1]{\codetc{\textcolor{magenta}{\tt #1}\xspace}}
+\newcommand{\code}[1]{\textcolor{magenta}{\tt #1}\xspace}
+
 \newcommand{\NN}{\ensuremath{\mathbb{N}}}
 \newcommand{\NNZ}{\ensuremath{\mathbb{N}_0}}
 \newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
