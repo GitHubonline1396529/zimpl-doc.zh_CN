@@ -1,0 +1,280 @@
+% dvips -ta4 -O0in,-1in zimpl.dvi
+%* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%*                                                                           *
+%*   File....: zimpl.tex                                                     *
+%*   Name....: Zuse Institute Mathematical Programming Language              *
+%*   Author..: Thorsten Koch                                                 *
+%*   Copyright (C) 2010-2020 by Author, All rights reserved                  *
+%*                                                                           *
+%* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+%
+% \documentclass[11pt]{article}
+\documentclass[11pt]{ctexart} % Use CTeX to display Chinese.
+% for formal Chinese articles, It's better to use the following geometry.
+\usepackage[
+  a4paper,
+  margin=1in
+]{geometry}
+%\renewcommand{\rmdefault}{pmnj}
+%\renewcommand{\ttdefault}{pcr}
+%\renewcommand{\sfdefault}{pmy}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[small,euler-digits]{eulervm}
+% \usepackage{a4}
+% \usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+%\usepackage{xspace}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{graphicx}
+%\usepackage{zibtitlepage}
+%\usepackage{pdfdraftcopy}
+\usepackage[%
+%dvips,
+% XeTeX Conflict with dvips so if I use CTeX `dvips` should be commented
+bookmarks,
+pdffitwindow,
+pdfcenterwindow=true,
+pdfstartview=Fit
+]{hyperref}
+\hypersetup{%
+pdftitle={非官方中文翻译版ZIMPL用户指南},
+pdfsubject={楚泽研究所数学规划设计语言版本3.7.0},
+pdfauthor={托尔斯·滕科赫},
+pdfkeywords={数学建模语言, 数学规划, 优化, 代数建模语言}
+}
+%
+\definecolor{seagreen}{rgb}{0.18,0.74,0.56}
+\definecolor{darkgreen}{rgb}{0.0,0.35,0.00}
+\definecolor{navyblue}{rgb}{0.0,0.0,0.5}
+\definecolor{steelblue}{rgb}{0.27,0.51,0.71}
+\definecolor{siennabrown}{rgb}{0.63,0.32,0.18}
+\definecolor{firebrickred}{rgb}{0.69,0.13,0.13}
+\definecolor{gray75}{rgb}{0.75,0.75,0.75}
+%
+\lstloadlanguages{C}
+\lstdefinelanguage{mps}{%
+   keywords={NAME,ROWS,COLUMNS,RHS,BOUNDS,ENDATA},%
+   sensitive,%
+   keywordstyle=\color{navyblue},%
+}[keywords]%
+%
+\lstdefinelanguage{YACC}{%
+   keywords={\%token,\%type,\%left,\%right,\%union},%
+   sensitive,%
+   singlecomment={/*}{*/},%
+   stringizer=[b]',%
+   keywordstyle=\color{navyblue},%
+   commentstyle=\color{darkgreen},%
+   stringstyle=\color{steelblue}%
+}[keywords,comments,strings]%
+%
+\lstdefinelanguage{zimpl}{%
+   keywords={set,var,param,minimize,maximize,subto},%
+   ndkeywords={read,as,comment,binary,integer,real,sum,forall,do,in,proj,vif,vabs,and,or,then,else,end},%
+   sensitive,%
+   showstringspaces=false,%
+   morecomment=[l]\#,
+   morestring=[b]",%
+   keywordstyle=\color{red},%
+   ndkeywordstyle=\color{navyblue},%
+   commentstyle=\color{darkgreen},%
+   stringstyle=\color{steelblue}%
+}[keywords,comments,strings]%
+%
+\lstdefinestyle{myc}{%
+   basicstyle=\sffamily\footnotesize,%
+   numberstyle=\sffamily\tiny\color{siennabrown},stepnumber=1,%
+   keywordstyle=\color{navyblue},%
+   commentstyle=\color{darkgreen},%
+   stringstyle=\color{steelblue},%
+   directivestyle=\color{firebrickred}%
+}
+%
+%\parindent0ex
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.2}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\renewcommand{\labelitemi}{$\blacktriangleright$}
+%
+\newcommand{\eg}{{e.\,g.}\xspace}
+\newcommand{\ie}{{i.\,e.,}\xspace}
+\newcommand{\zimpl}{{\sc Zimpl}\xspace}
+\newcommand{\lp}{{\sc lp}\xspace}
+\newcommand{\ip}{{\sc ip}\xspace}
+\newcommand{\cpu}{{\sc cpu}\xspace}
+\newcommand{\mip}{{\sc mip}\xspace}
+\newcommand{\tsp}{{\sc tsp}\xspace}
+\newcommand{\mps}{{\sc mps}\xspace}
+\newcommand{\lpf}{{\sc lp}\xspace}
+\newcommand{\ibm}{{\sc ibm}\xspace}
+\newcommand{\zpl}{{\sc zpl}\xspace}
+\newcommand{\ampl}{{\sc ampl}\xspace}
+\newcommand{\ilog}{{\sc ilog}\xspace}
+\newcommand{\cplex}{{\sc cplex}\xspace}
+\newcommand{\scip}{{\sc scip}\xspace}
+\newcommand{\sos}{{\sc sos}\xspace}
+\newcommand{\code}[1]{{\tt #1}\xspace}
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\NNZ}{\ensuremath{\mathbb{N}_0}}
+\newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
+\newcommand{\BB}{\ensuremath{\{0,1\}}}
+\newcommand{\fa}{\ensuremath{\text{for all }}}
+\newcommand{\argmin}{\ensuremath{\operatorname{argmin}}\xspace}
+\newcommand{\argmax}{\ensuremath{\operatorname{argmax}}\xspace}
+%
+\headheight5mm
+%\renewcommand{\footrulewidth}{\headrulewidth}
+\lhead{\zimpl}
+\chead{}
+\rhead{}
+\cfoot{\thepage}
+\pagestyle{fancy}
+%
+\begin{document}
+%\ZTPAuthor{Thorsten Koch}
+%\ZTPTitle{\zimpl User Guide}
+%\ZTPInfo{Best preprint of the year 2000}
+%\ZTPNumber{01-20}
+%\ZTPMonth{August}
+%\ZTPPreprint
+%\ZTPYear{2001}
+%\zibtitlepage
+
+\title{
+%\vspace*{-3cm}\epsfig{file=ziblogo2.eps,width=3cm}\\[\bigskipamount]
+\LARGE\zimpl 用户指南\\
+\normalsize (祖萨研究院数学规划建模设计语言)\\
+}
+\author{托尔斯滕·科赫}
+\date{\small 版本 3.7.0\\2024年10月}
+\maketitle
+%
+\tableofcontents
+\newpage
+\begin{abstract}
+  \zimpl 是一种轻量化的特定领域语言 (little language)，用于将问题的数学模型
+  描述转译为线性或 (混合) 整数规划程序，并保存为 (希望是) 能被\lp 或\mip 的
+  求解器求解的\lpf 或\mps 文件格式。
+  % \zimpl is a little language in order to translate the mathematical
+  % model of a problem into a linear or (mixed-)integer mathematical
+  % program, expressed in \lpf or \mps file format which can be read and
+  % (hopefully) solved by a \lp or \mip solver.
+\end{abstract}
+% -----------------------------------------------------------------------------
+% --- Introduction
+% -----------------------------------------------------------------------------
+
+
+\section{序言}
+% \section{Preface}
+\begin{flushright}
+{\em 愿源码与你同在，卢克！}\footnote{\textbf{译者注}：“愿原力与你同在” 
+(May the force be with you.)，是《星球大战》系列影视作品里一句著名台词，
+最初是影片故事里对拥有原力者的一种祝福和祈祷。这里原文作者使用了谐音，将“原力”
+(force) 替换为了“源码” (source) 以祝福支持源码开源事业的读者。}
+% {\em May the source be with you, Luke!}
+\end{flushright}
+许多\zimpl 中的功能 (以及更多它不具备的功能) 都可以在罗伯特·富勒、
+大卫·N·盖伊和布莱恩·W·克宁翰合著的关于\ampl 建模语言的优秀书籍
+\cite{FourierGayKernighan2003} 中找到。如果您对当前 (商用) 建模语言的最新
+进展感兴趣，也可以参考文献\cite{Kallrath2004}。
+% Many of the things in \zimpl (and a lot more) can be found in
+% the excellent book about the modeling language \ampl
+% from Robert Fourer, David N. Gay and Brian W. Kernighan
+% \cite{FourierGayKernighan2003}. Those interested in an overview of the
+% current state-of-the-art in (commercial) modeling languages might have
+% a look at \cite{Kallrath2004}.
+
+但另一方面，拥有程序的源代码可能带来许多优势。例如，能够在不同的架构和操作
+系统上运行，能够根据需求对程序进行修改，以及不必与许可证管理器纠缠的便利性
+，都可能使一个功能弱得多的程序成为更好的选择。正因如此，\zimpl 应运而生。
+% On the other hand, having the source code of a program has its
+% advantages. The possibility to run it regardless of architecture and
+% operating system, the ability to modify it to suit the needs, and not
+% having to hassle with license managers may make a much less powerful
+% program the better choice.  And so \zimpl came into being.
+
+\bigskip
+迄今为止\zimpl 被逐步完善并成熟，已被应用于数个工业项目和高校教育课程，
+展示出其不仅在应对大规模数学模型时，也在面向学生教育中，具备出众的能力。
+而这也离不开我的早期用户阿明·菲根舒 (Armin F\"ugenschuh)，马克·普费奇 
+(Marc Pfetsch)，萨沙·卢卡茨 (Sascha Lukac)，丹尼尔·容格拉斯 (Daniel
+Junglas)，约尔格·兰鲍 (J\"orgRambau)和托比亚斯·阿赫特贝格 (Tobias
+Achterberg)，感谢他们提出的意见和问题反馈。特别感谢图奥莫·塔库拉 (Tuomo
+Takkula) 对本手册的修订。
+% By now \zimpl has grown up and matured. It has been used in several
+% industrial projects and university lectures, showing that it is able to
+% cope with large-scale models and also with students.
+% This would not have been possible without my early adopters
+% Armin F\"ugenschuh, Marc Pfetsch, Sascha Lukac, Daniel Junglas, J\"org
+% Rambau, and Tobias Achterberg. Thanks for their comments and bug
+% reports. Special thanks to Tuomo Takkula for revising this manual.
+
+\bigskip
+\zimpl 基于第三版GNU宽通用公共许可证发布。更多关于自由软件的信息另请参见
+\url{http://www.gnu.org}。\zimpl 的最新版本可以在\url{http://zimpl.zib.de}
+找到。
+如果你发现了任何的程序错误，请发送电子邮件到邮箱\url{mailto:koch@zib.de}，
+请不要忘了附上示例来展示问题。如果有人开发了\zimpl 的功能扩展，我很乐意收
+到补丁，并将这些改进纳入主发行版本。
+% \zimpl is licensed under the GNU Lesser General Public License Version 3.
+% For more information on free software see \url{http://www.gnu.org}.
+% The latest version of \zimpl can be found at
+% \url{http://zimpl.zib.de}.
+% If you find any bugs, then please send an email to
+% \url{mailto:koch@zib.de}, and do not forget to
+% include an example that shows the problem.
+% If somebody extends \zimpl, then I am interested in getting patches
+% to include them into the main distribution.
+
+\bigskip
+% \noindent{The best way to refer to \zimpl in a publication is to cite my
+%   PhD thesis \cite{Koch2004}}
+\noindent{在出版物中引用\zimpl 的最佳方式是引用我的博士论文
+    \cite{Koch2004}}
+{\small
+\begin{verbatim}
+ @PHDTHESIS{Koch2004,
+   author      = "Thorsten Koch",
+   title       = "Rapid Mathematical Programming",
+   school      = "Technische {Universit\"at} Berlin",
+   year        = "2004",
+   url         = "http://www.zib.de/Publications/abstracts/ZR-04-58/",
+   note        = "ZIB-Report 04-58"
+}
+\end{verbatim}
+
+%--------------------------------------------------------------------------------------
+\include{zimplug}
+%--------------------------------------------------------------------------------------
+%\section{Frequently asked questions}
+%
+%\input{zimplfaq}
+%
+%\clearpage
+
+\section{报错信息}
+以下是一份\zimpl 可能产生的无法理解的报错消息的 (希望是) 完整的列表：
+% Here is a (hopefully) complete list of the incomprehensible error messages \zimpl
+% can produce:
+
+\input{zimplerr}
+
+\nocite{*}
+\small
+\bibliographystyle{alpha}
+\bibliography{zimpl}
+\end{document}
