@@ -1004,7 +1004,7 @@ set IN          := inter <j> in J : P[j]; # empty!
 \begin{table}[htbp]
 \centering
 {\sffamily\small
-\begin{tabular}{lp{5cm}p{5cm}} % For Chinese displaystyle.
+\begin{tabular}{lp{6.4cm}p{4cm}} % For Chinese displaystyle.
 % \begin{tabular}{llp{5cm}}
 \toprule
 \code{powerset(A)} & 生成集合 $A$ 的所有子集 & $\{X\mid X\subseteq A\}$\\
@@ -1189,26 +1189,40 @@ Moin   7  2
 \end{verbatim}
 }
 
-\noindent For each component of the tuple, the number of the field
-to use for the value is given, followed by either \code{n} if the
-field should be interpreted as a number or \code{s} for a string.
-After the template, some optional modifiers can be given. The order
-does not matter.
-\code{match} \emph{s} compares the regular expression \emph{s} against
-the line read from the file. Only if the expression matches the
-line, it is processed further. POSIX extended regular expression syntax
-is used.
-\code{comment} \emph{s} sets a list of characters that start
-comments in the file. Each line is ended when any of the comment
-characters is found.
-\code{skip} \emph{n} instructs to skip the first
-\emph{n} lines of the file.
-\code{use} \emph{n} limits the number of
-lines to use to \emph{n}.
-When a file is read, empty lines, comment lines, and unmatched lines
-are skipped and not counted for the \code{use} and \code{skip} clauses.
+\noindent 对于元组的每一个组成部分，都需要指定使用哪一个字段，
+并在其后标明该字段的类型：若字段应被解释为数值，则写 \code{n}；
+若应作为字符串处理，则写 \code{s}。在模板之后，
+可以添加一些可选修饰项，顺序不限：
+% \noindent For each component of the tuple, the number of the field
+% to use for the value is given, followed by either \code{n} if the
+% field should be interpreted as a number or \code{s} for a string.
+% After the template, some optional modifiers can be given. The order
+% does not matter.
+\code{match} \emph{s} 会正则表达式 \emph{s} 应用于读取的每一行文本。
+只有当该表达式与该行匹配时，该行才会被进一步处理。所使用的正则语法为 
+POSIX 扩展的正则表达式语法。
+% \code{match} \emph{s} compares the regular expression \emph{s} against
+% the line read from the file. Only if the expression matches the
+% line, it is processed further. POSIX extended regular expression syntax
+% is used.
+\code{comment} \emph{s} 指定一个字符列表，这些字符用于标识文件中的注释。
+若在一行中遇到任一注释字符，则该行在该字符处被截断。
+% \code{comment} \emph{s} sets a list of characters that start
+% comments in the file. Each line is ended when any of the comment
+% characters is found.
+\code{skip} \emph{n} 表示跳过文件的前 \emph{n} 行内容。
+% \code{skip} \emph{n} instructs to skip the first
+% \emph{n} lines of the file.
+\code{use} \emph{n} 限制读取的行数不超过 \emph{n} 行。
+在读取文件的过程中，空行、注释行以及未匹配的行都将被跳过，且不计入
+\code{use} 和 \code{skip} 的计数范围内。
+% \code{use} \emph{n} limits the number of
+% lines to use to \emph{n}.
+% When a file is read, empty lines, comment lines, and unmatched lines
+% are skipped and not counted for the \code{use} and \code{skip} clauses.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \verb|set P := { read "nodes.txt" as "<1s>" };|
 
@@ -1248,9 +1262,11 @@ are skipped and not counted for the \code{use} and \code{skip} clauses.
 \verb|      4:5:de:con3     | $\rightarrow$ $<$"de",4,5$>$ "con3"\\
 }
 
-\noindent As with table format input, it is possible to add a list of tuples or
-parameter entries after a read statement.
-\subsubsection{Examples}
+\noindent 与表格式输入一样，可以在 read 语句之后添加由元组或参数项组成的列表。
+% \noindent As with table format input, it is possible to add a list of tuples or
+% parameter entries after a read statement.
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 set A := { read "test.txt" as "<2n>", <5>, <6> };
@@ -1259,12 +1275,15 @@ param winniepoh[X] :=
 \end{verbatim}
 }
 
-It is also possible to read a single value into a parameter. In this
-case, either the file should contain only a single line, or the read
-statement should be instructed by means of a \code{use 1} parameter
-only to read a single line.
 
-\subsubsection{Examples}
+也可以将一个单独的值读取到某个参数中。在这种情况下，文件应只包含一行内容，
+或者应通过添加 \code{use 1} 参数来指示读取语句仅读取一行。
+% It is also possible to read a single value into a parameter. In this
+% case, either the file should contain only a single line, or the read
+% statement should be instructed by means of a \code{use 1} parameter
+% only to read a single line.
+
+\subsubsection{示例}
 {\small
 \begin{verbatim}
 # Read the fourth value in the fifth line
