@@ -128,16 +128,20 @@ pdfkeywords={数学建模语言, 数学规划, 优化, 代数建模语言}
 \newcommand{\sos}{{\sc sos}\xspace}
 
 % \newcommand{\code}[1]{{\tt #1}\xspace}
-% If an in-line code box only contains one single symbol, 
-% it may not be clearly visible within the lines of Chinese text. 
-% Therefore, we need to color it.
-\newcommand\mystrut{\rule[-1pt]{0pt}{.8em}}
-\usepackage{tcolorbox} % To support inline code.
+% 夹在中文里的行间代码用等宽字符显示有的时候会出现看不起的情况，我尝试了好几种
+% 办法。最后发现最好用的方法是：
+%
+% 1. 行间代码前后都加上 \xspace 与前后文拉开距离；
+% 2. 细长的行间代码字符比如 \code{[}、\code{|} 和 \code{:}，翻译的时候前后加上
+%    中文引号来改善显示。
+%
+% \newcommand\mystrut{\rule[-1pt]{0pt}{.8em}}
+% \usepackage{tcolorbox} % To support inline code.
 % \newtcbox{\codetc}{on line, boxrule=0pt, boxsep=0pt, top=2pt,
 % left=2pt, bottom=2pt, right=2pt, colback=magenta!7.5, colframe=white,
 % fontupper={\ttfamily\mystrut}}
 % \newcommand{\code}[1]{\codetc{\textcolor{magenta}{\tt #1}\xspace}}
-\newcommand{\code}[1]{\textcolor{magenta}{\tt #1}\xspace}
+\newcommand{\code}[1]{\xspace{\tt #1}\xspace}
 
 \newcommand{\NN}{\ensuremath{\mathbb{N}}}
 \newcommand{\NNZ}{\ensuremath{\mathbb{N}_0}}
