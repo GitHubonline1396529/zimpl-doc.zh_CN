@@ -1530,57 +1530,92 @@ do forall <p> in P do check sum <p,i> in PI : 1 >= 1;
 
 
 %------------------------------------------------------------------------------
-\section{Models}
+\section{模型}
+% \section{Models}
 %------------------------------------------------------------------------------
-In this section, we use the machinery developed up to now to
-formulate mathematical programs. Apart from the usual syntax to
-declare variables, objective functions and constraints there is
-special syntax available that permits the easy formulation of special
-constraints, such as special ordered sets, conditional constraints,
-and extended functions.
+在本节中，我们将运用此前构建的各类机制来表述数学规划模型。  
+除了用于声明变量、目标函数与约束的一般语法外，  
+还提供了一些特殊的语法，用于简洁地表述特殊约束，  
+例如特殊有序集 (special ordered sets) 、条件约束 
+(conditional constraints) 以及扩展函数 (extended functions) 。
+% In this section, we use the machinery developed up to now to
+% formulate mathematical programs. Apart from the usual syntax to
+% declare variables, objective functions and constraints there is
+% special syntax available that permits the easy formulation of special
+% constraints, such as special ordered sets, conditional constraints,
+% and extended functions.
 
-\subsection{Variables}
+\subsection{规划变量}
+% \subsection{Variables}
 %------------------------------------------------------------------------------
-Like parameters, variables can be indexed.
-A variable has to be one out of three possible types:
-Continuous (called \code{real}), \code{binary} or \code{integer}. The default type is real.
-Variables may have lower and upper bounds. Defaults are
-zero as the lower and infinity as the upper bound. Binary variables are
-always bounded between zero and one.
-It is possible to compute the value of the lower or upper bounds
-depending on the index of the variable (see the last declaration in the
-example). Bounds can also be set to \code{infinity} and \code{-infinity}.
-Binary and integer variables can be declared \code{implicit}, \ie the
-variable can be assumed to have an integral value in any optimal
-solution to the integer program, even if it is declared continuous.
-Use of \emph{implicit} is only useful if used together with a solver
-that take advantage of this information. As of this writing, only \scip
-(\url{http://scipopt.org}) with linked in \zimpl can do so.
-In all other cases, the variable is treated as a continuous variable.
-It is possible to specify initial values for integer variables by use
-of the \code{startval} keyword. Furthermore, the branching  priority
-can be given using the \code{priority} keyword. Currently, these
-values are written to a \cplex \code{ord} branching order file if the
-\code{-r} command line switch is given.
+与参数类似，变量也可以带有索引。
+变量必须属于以下三种类型之一：实型 (称为\code{real})、
+逻辑型 (\code{binary}) 或整型 (\code{integer})。默认类型为实型。
+变量可以设置下界与上界。默认下界为零，上界为无穷大。
+逻辑变量的取值范围始终在零与一之间。
+可以根据变量的索引值来计算其上下界 (参见示例中的最后一条语句)。  
+界限也可以显式设置为\code{infinity}或\code{-infinity}。  
+逻辑与整数变量可以声明为\code{implicit}，这也就是说，
+即使变量被声明为连续型，在整数规划的最优解中也可以被假定为取整值。
+\emph{implicit}的使用仅在配合支持该特性的求解器时才有意义。  
+截至目前，仅有链接了\zimpl 的\scip (\url{http://scipopt.org}) 支持此特性。  
+在其他情况下，该变量仅会被视为连续变量。
+可使用\code{startval} 关键字为整数变量指定初始值。  
+此外，可以使用\code{priority}关键字指定分支优先级。  
+目前，当使用\code{-r}命令行选项时，这些值会被写入一个\cplex 格式的
+\code{ord}分支顺序文件中。
+% Like parameters, variables can be indexed.
+% A variable has to be one out of three possible types:
+% Continuous (called \code{real}), \code{binary} or \code{integer}. The default type is real.
+% Variables may have lower and upper bounds. Defaults are
+% zero as the lower and infinity as the upper bound. Binary variables are
+% always bounded between zero and one.
+% It is possible to compute the value of the lower or upper bounds
+% depending on the index of the variable (see the last declaration in the
+% example). Bounds can also be set to \code{infinity} and \code{-infinity}.
+% Binary and integer variables can be declared \code{implicit}, \ie the
+% variable can be assumed to have an integral value in any optimal
+% solution to the integer program, even if it is declared continuous.
+% Use of \emph{implicit} is only useful if used together with a solver
+% that take advantage of this information. As of this writing, only \scip
+% (\url{http://scipopt.org}) with linked in \zimpl can do so.
+% In all other cases, the variable is treated as a continuous variable.
+% It is possible to specify initial values for integer variables by use
+% of the \code{startval} keyword. Furthermore, the branching  priority
+% can be given using the \code{priority} keyword. Currently, these
+% values are written to a \cplex \code{ord} branching order file if the
+% \code{-r} command line switch is given.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 var x1;
 var x2 binary;
-var x3 integer >= -infinity      # free variable
+var x3 integer >= -infinity      # 自由变量
 var y[A] real >= 2 <= 18;
 var z[<a,b> in C] integer
       >= a * 10 <= if b <= 3 then p[b] else infinity end;
 var w implicit binary;
 var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
 \end{verbatim}
+% \begin{verbatim}
+% var x1;
+% var x2 binary;
+% var x3 integer >= -infinity      # free variable
+% var y[A] real >= 2 <= 18;
+% var z[<a,b> in C] integer
+%       >= a * 10 <= if b <= 3 then p[b] else infinity end;
+% var w implicit binary;
+% var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
+% \end{verbatim}
 }
 
 %\fbox{Remember: if nothing is specified a lower bound of zero is assumed.}
 
 
-\subsection{Objective}
+\subsection{目标函数}
+% \subsection{Objective}
 There must be at most one objective statement in a model. The objective
 can be either \code{minimize} or \code{maximize}. Following the
 keyword is a name, a colon : and then a linear term expressing the
