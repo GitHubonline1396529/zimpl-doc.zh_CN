@@ -1616,17 +1616,30 @@ var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
 
 \subsection{目标函数}
 % \subsection{Objective}
-There must be at most one objective statement in a model. The objective
-can be either \code{minimize} or \code{maximize}. Following the
-keyword is a name, a colon : and then a linear term expressing the
-objective function.
+在模型的声明中，最多只能声明一个目标函数。目标函数可以是\code{maximize}
+(极大化) 或者\code{minimize} (极小化) 的。紧随关键字声明值后的是一个 
+(目标函数的) 名字，以及一个冒号“\code{:}”随后是一个目标函数形式的一个
+线性表达式。
+% There must be at most one objective statement in a model. The objective
+% can be either \code{minimize} or \code{maximize}. Following the
+% keyword is a name, a colon : and then a linear term expressing the
+% objective function.
 
-If there is an objective offset, \ie a constant value in the
-objective function, \zimpl automatically generates an internal
-variable \code{@@ObjOffset} set to one. This variable is put into the
-objective function with the appropriate coefficient.\footnote{The reason for
-this is that there is no portable way to put an offset into the
-objective function in neither \lpf nor \mps-format.}
+如果规划目标中包含补偿值 (offset)，也就是说一个常数值，\zimpl 会自动生成一个
+内部变量\code{@@ObjOffset}并将其赋值为1。该变量将以合适的系数被纳入目标函数中。
+\footnote{
+  这是因为，无论是 \lpf 还是 \mps 格式，都没有通用的方法在目标函数中直接表示
+  一个常数项。
+  \textbf{译者注}: 我不知道原文作者此处所说的“offset”是什么意思，姑且将其翻译
+  为“补偿值”。除此之外，笔者也并未发现\lpf 文件不支持目标函数里包含常数项的语
+  法形式。这可能是为了兼容一些比较旧的求解器机制而作的设计。
+}
+% If there is an objective offset, \ie a constant value in the
+% objective function, \zimpl automatically generates an internal
+% variable \code{@@ObjOffset} set to one. This variable is put into the
+% objective function with the appropriate coefficient.\footnote{The reason for
+% this is that there is no portable way to put an offset into the
+% objective function in neither \lpf nor \mps-format.}
 
 \subsubsection{Example}
 {\small
