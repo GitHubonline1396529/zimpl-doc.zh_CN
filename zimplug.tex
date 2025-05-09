@@ -1641,7 +1641,8 @@ var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
 % this is that there is no portable way to put an offset into the
 % objective function in neither \lpf nor \mps-format.}
 
-\subsubsection{Example}
+\subsubsection{示例}
+% \subsubsection{Example}
 {\small
 \begin{verbatim}
 minimize cost: 12 * x1 -4.4 * x2 + 5
@@ -1652,34 +1653,50 @@ maximize profit: sum <i> in I : c[i] * x[i];
 }
 
 %------------------------------------------------------------------------------
-\subsection{Constraints}\label{ssec:ug:constraints}
+\subsection{模型约束}\label{ssec:ug:constraints}
+% \subsection{Constraints}\label{ssec:ug:constraints}
 %------------------------------------------------------------------------------
-The general format for a constraint is:
+模型约束的一般格式如下所示：
+% The general format for a constraint is:
 
 \smallskip
-\verb|subto name: term sense term|
+\verb|subto [名称]: [项式] [比较符] [项式]|
+% \verb|subto name: term sense term|
 
 \smallskip
-\noindent Alternatively, it is also possible to define \emph{ranged} constraints
-which have the form:
+\noindent \noindent 或者，也可以通过如下的形式带区间的\footnote{
+  \textbf{译者注}: 原作者在这里指的是类似于$a \le x \le b$这样的约束形式。
+  也就是说，在\zimpl 中，形如此的约束不需要分开写成两个式子。
+} (\code{ranged}) 约束。
+% \noindent Alternatively, it is also possible to define \emph{ranged} constraints
+% which have the form:
 
 \smallskip
-\verb|subto name: expr sense term sense expr|
+\verb|subto [名称]: [表达式] [比较符] [项式] [比较符] [表达式]|
+% \verb|subto name: expr sense term sense expr|
 
 \smallskip
-\noindent \code{name} can be any name starting with a letter. \code{term} is defined
-as in the objective. \code{sense} is one of
-\code{<=}, \code{>=} and \code{==}. In case of ranged constraints
-both senses have to be equal and may not be \code{==}. \code{expr} is any
-valid expression that evaluates to a number.
+\noindent \code{[名称]}表示任意以字母开头的合法名称；\code{[项式]}的定义方式
+与目标函数中的相同；\code{[比较符]}表示约束的比较运算符，可以是\code{<=}、
+\code{>=}或\code{==}。对于带区间的约束来说，这两个比较符必须相同，且不能为
+\code{==}；\code{[表达式]}是任意能够计算出数值的合法表达式。
+% \noindent \code{name} can be any name starting with a letter. \code{term}
+% is defined as in the objective. \code{sense} is one of
+% \code{<=}, \code{>=} and \code{==}. In case of ranged constraints
+% both senses have to be equal and may not be \code{==}. \code{expr} is any
+% valid expression that evaluates to a number.
 
-Additional to linear constraints as in the objective it is also
-possible to state terms with higher degree for constraints.
 
-Many constraints can be generated with one statement by the use of the
-\code{forall} instruction, as shown below.
+除了目标函数中使用的线性约束之外，约束语句中还可以包含更高阶（非线性）的项。
+% Additional to linear constraints as in the objective it is also
+% possible to state terms with higher degree for constraints.
 
-\subsubsection{Examples}
+借助\code{forall}语句，还可以通过一条语句同时生成多个约束，示例如下所示。
+% Many constraints can be generated with one statement by the use of the
+% \code{forall} instruction, as shown below.
+
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 subto time:  3 * x1 + 4 * x2 <= 7;
@@ -1694,8 +1711,10 @@ subto frown: forall <i,j> in X cross { 1 to 5 } without { <2,3> }
 subto nonlin: 3 * x * y * z + 6 <= x^3 + z * y^2 + 3;
 \end{verbatim}
 }
-\noindent Note that in the example \emph{i} and \emph{j} are set by the \code{forall}
-instruction. So they are fixed in all invocations of \code{sum}.
+\noindent 注意，在下列示例中，变量\emph{i}和\emph{j}是由\code{forall}
+语句赋值的，因此它们在每一轮\code{sum}表达式中的每次调用中都是固定不变的。
+\noindent Note that in the example \emph{i} and \emph{j} are set by the
+\code{forall} instruction. So they are fixed in all invocations of \code{sum}.
 
 %------------------------------------------------------------------------------
 \subsubsection{\emph{if} in terms}
