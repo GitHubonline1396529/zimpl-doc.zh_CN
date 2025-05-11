@@ -1712,18 +1712,24 @@ subto nonlin: 3 * x * y * z + 6 <= x^3 + z * y^2 + 3;
 \end{verbatim}
 }
 \noindent 注意，在下列示例中，变量\emph{i}和\emph{j}是由\code{forall}
-语句赋值的，因此它们在每一轮\code{sum}表达式中的每次调用中都是固定不变的。
+语句确定的的，因此它们在每一轮\code{sum}表达式中的每次调用中都是固定不变的。
 % \noindent Note that in the example \emph{i} and \emph{j} are set by the
 % \code{forall} instruction. So they are fixed in all invocations of \code{sum}.
 
 %------------------------------------------------------------------------------
-\subsubsection{\emph{if} in terms}
+\subsubsection{项式中的\emph{if}语句}
+% \subsubsection{\emph{if} in terms}
 %------------------------------------------------------------------------------
-Part of a constraint can be put into an \code{if-then-else-end}.
-In this particular case, the else part is mandatory and both parts
-need to include some variables in the term.
 
-\subsubsection{Examples}
+约束中的一部分项式通过放入 \code{if-then-else-end} 结构来根据条件构造。
+在这种特定情况下，else 部分是必需的，并且 then 与 else 的两个分支
+都必须在项式中包含某些变量项。
+% Part of a constraint can be put into an \code{if-then-else-end}.
+% In this particular case, the else part is mandatory and both parts
+% need to include some variables in the term.
+
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 subto c2: sum <i> in I :
