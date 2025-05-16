@@ -1738,14 +1738,19 @@ subto c2: sum <i> in I :
 }
 
 %------------------------------------------------------------------------------
-\subsubsection{\emph{if} in constraints}
+\subsubsection{约束中的\emph{if}语句}
+% \subsubsection{\emph{if} in constraints}
 %------------------------------------------------------------------------------
-It is possible to put two variants of a constraint into an
-\code{if}-statement.
-A \code{forall} statement inside the result part of an \code{if} is
-also possible. The \code{else} part is optional.
+可以通过 \code{if} 语句，在模型中设定具有两种不同形式的约束条件。
+在 \code{if} 的结果分支中也可以使用 \code{forall} 语句。
+其中，\code{else} 分支是可选的。
+% It is possible to put two variants of a constraint into an
+% \code{if}-statement.
+% A \code{forall} statement inside the result part of an \code{if} is
+% also possible. The \code{else} part is optional.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 subto c1: forall <i> in I do
@@ -1755,13 +1760,18 @@ subto c1: forall <i> in I do
 }
 
 %------------------------------------------------------------------------------
-\subsubsection{Combining constraints with \emph{and}}
+\subsubsection{使用\emph{and}以合并约束}
+% \subsubsection{Combining constraints with \emph{and}}
 %------------------------------------------------------------------------------
-It is possible to group constraints by concatenating them with
-\code{and}. This group will then always be processed together.
-This operator is particularly useful in combination with \code{forall} and \code{if}.
+可以使用 and 将多个约束语句连接起来，从而将它们归为一组。
+这一组约束将始终被作为一个整体一同处理。
+该运算符在结合\code{forall}和\code{if}语句使用时尤其有用。
+% It is possible to group constraints by concatenating them with
+% \code{and}. This group will then always be processed together.
+% This operator is particularly useful in combination with \code{forall} and \code{if}.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 subto c1: forall <i> in I:
@@ -1785,10 +1795,12 @@ subto c1: forall <i> in I:
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Constraint attributes}
+\subsubsection{约束属性}
+% \subsubsection{Constraint attributes}
 %------------------------------------------------------------------------------
-It is possible to specify special attributes for a constraint regarding
-how it should be handled later on.
+可以为约束指定特殊属性，以控制其在后续处理过程中的行为。
+% It is possible to specify special attributes for a constraint regarding
+% how it should be handled later on.
 
 \begin{description}
 \item[scale]
