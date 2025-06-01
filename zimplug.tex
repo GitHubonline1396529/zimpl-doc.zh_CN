@@ -1804,38 +1804,62 @@ subto c1: forall <i> in I:
 
 \begin{description}
 \item[scale]
-  Before the constraint is written to a file, it is scaled by
-  $1/\max |c|$ with $c$ being the coefficients of the constraint.
+  在将约束写入文件之前，按 $1/\max |c|$ 的比例对其缩放，
+  其中 $c$ 表示该约束中所有系数的绝对值。
+  % Before the constraint is written to a file, it is scaled by
+  % $1/\max |c|$ with $c$ being the coefficients of the constraint.
 \item[separate]
-  Do not include the constraint in the initial LP, but separate it later on.
-  The constraint need not to be checked for feasibility.
-  When written to an \lpf file it will be written into a \code{USER
-  CUTS} section, in \scip separate will be set to true.
+  不将该约束包含在初始线性规划中，而是在之后通过分离过程动态加入
+  \footnote{
+    在一些规划建模问题当中，有一些约束是动态添置的。例如求解TSP时使用DFJ作为
+    ESCs的情形。在这种情况下，需要使用seperate和checkonly属性标签。}。
+  该约束不需要用于可行性检查。当写入\lpf 文件时，将被置于\code{USER CUTS}区域；
+  在\scip 求解器中，该约束的 separate 属性将被设为 true。
+  % Do not include the constraint in the initial LP, but separate it later on.
+  % The constraint need not to be checked for feasibility.
+  % When written to an \lpf file it will be written into a \code{USER
+  % CUTS} section, in \scip separate will be set to true.
 \item[checkonly]
-  Do not include the constraint in the initial LP, but separate only to
-  check for feasibility.
-  When written to an \lpf file it will be written into a \code{LAZY
-  CUTS} section, in \scip check will be set to true.
+  不将该约束包含在初始线性规划中，仅在之后用于可行性检查的分离过程中引入。
+  当写入\lpf 文件时，将被置于\code{LAZY CUTS}区域；在\scip 求解器中，
+  该约束的 check 属性将被设为 true。
+  % Do not include the constraint in the initial LP, but separate only to
+  % check for feasibility.
+  % When written to an \lpf file it will be written into a \code{LAZY
+  % CUTS} section, in \scip check will be set to true.
 \item[indicator]
-  If vif (see below) is part of the constraint then it is modeled as an
-  indicator constraint and not by a big-M formulation.
-  If you use this attribute, you can no longer write \mps-format, as
-  indicator variables are not supported by this format.
+  如果约束中包含vif \footnote{这类约束在数学规划中通常写作：
+      $\text{if } y = 1 \text{ then } a^T x \le b \text{ else } y=0$，
+    一些求解器提供了原生的vif语法。
+  } (见下文示例)，那么该约束将被建模为一个指示约束
+  (indicator constraint)，而非采用 big-M 形式来表示。若使用了该属性，
+  则无法再将模型导出为\mps 格式文件，因为\mps 格式不支持指示变量。
+  % If vif (see below) is part of the constraint then it is modeled as an
+  % indicator constraint and not by a big-M formulation.
+  % If you use this attribute, you can no longer write \mps-format, as
+  % indicator variables are not supported by this format.
 \item[qubo]
-  Transform the constraint into an qudratic objective.
-  Note that neccessary binary slacks are created automatically.
-  However, integer variables are currently not automatically
-  converted into binary variables.
-\item[penaltyX] Only to be used together with the \emph{qubo}
-attribute. Multiply the constraint that is put into the objective
-by a factor of $P=10^X$, $X\in\{1,\ldots,6\}$.
+  将该约束转换为一个二次型目标函数项。注意必要的二进制松弛变量会被自动创建。
+  然而，到目前为止，整数变量不会被自动转换为二进制变量。
+  % Transform the constraint into an qudratic objective.
+  % Note that neccessary binary slacks are created automatically.
+  % However, integer variables are currently not automatically
+  % converted into binary variables.
+\item[penaltyX] 
+  只能与\emph{qubo}属性一起使用。将被转入目标函数的该约束乘上一个因子
+  $P=10^X$, $X\in\{1,\ldots,6\}$。
+  % Only to be used together with the \emph{qubo}
+  % attribute. Multiply the constraint that is put into the objective
+  % by a factor of $P=10^X$, $X\in\{1,\ldots,6\}$.
 \end{description}
 
 \noindent
-The attributes are given after the constraint, before the semi-colon
-and are separated by commas.
+属性要写在每个约束末尾、分号之前，多个属性之间用逗号分隔。
+% The attributes are given after the constraint, before the semi-colon
+% and are separated by commas.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 subto c1: 1000 * x + 0.3 * y <= 5, scale, checkonly;
