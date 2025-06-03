@@ -1810,7 +1810,7 @@ subto c1: forall <i> in I:
   % $1/\max |c|$ with $c$ being the coefficients of the constraint.
 \item[separate]
   不将该约束包含在初始线性规划中，而是在之后通过分离过程动态加入
-  \footnote{
+  \footnote{\textbf{译者注}：
     在一些规划建模问题当中，有一些约束是动态添置的。例如求解TSP时使用DFJ作为
     ESCs的情形。在这种情况下，需要使用seperate和checkonly属性标签。}。
   该约束不需要用于可行性检查。当写入\lpf 文件时，将被置于\code{USER CUTS}区域；
@@ -1828,9 +1828,10 @@ subto c1: forall <i> in I:
   % When written to an \lpf file it will be written into a \code{LAZY
   % CUTS} section, in \scip check will be set to true.
 \item[indicator]
-  如果约束中包含vif \footnote{这类约束在数学规划中通常写作：
-      $\text{if } y = 1 \text{ then } a^T x \le b \text{ else } y=0$，
-    一些求解器提供了原生的vif语法。
+  如果约束中包含vif \footnote{\textbf{译者注}：
+     这类约束在数学规划中通常写作：
+       $\text{if } y = 1 \text{ then } a^T x \le b \text{ else } y=0$，
+     一些求解器提供了原生的vif语法。
   } (见下文示例)，那么该约束将被建模为一个指示约束
   (indicator constraint)，而非采用 big-M 形式来表示。若使用了该属性，
   则无法再将模型导出为\mps 格式文件，因为\mps 格式不支持指示变量。
@@ -1871,27 +1872,42 @@ subto c4: sum <i> in I : x[i] <= 15, qubo, penalty3;
 
 
 %------------------------------------------------------------------------------
-\subsubsection{Special ordered sets}
+\subsubsection{特殊顺序集}
+% \subsubsection{Special ordered sets}
 %------------------------------------------------------------------------------
-\zimpl can be used to specify special ordered sets (\sos) for an
-integer program. If a model contains any \sos a \code{sos} file is
-written together with the \code{lp} or \code{mps} file.
-The general format of a special ordered set is:
+在\zimpl 中可以为整数规划指定特殊顺序集\footnote{\textbf{译者注}：
+  另请参阅\url{https://en.wikipedia.org/wiki/Special_ordered_set}。
+} (\sos)。如果模型中包含任何 \sos，
+则在生成 \code{lp} 或 \code{mps} 文件时，会同时输出一个后缀名为
+\code{sos} 的文件。
+特殊顺序集的一般格式如下：
+% \zimpl can be used to specify special ordered sets (\sos) for an
+% integer program. If a model contains any \sos a \code{sos} file is
+% written together with the \code{lp} or \code{mps} file.
+% The general format of a special ordered set is:
 
 \smallskip
-\verb@sos name: [type1|type2] priority expr : term@
+\verb@sos [名称]: [type1|type2] priority [表达式]: [线性表达式]@;
+% \verb@sos name: [type1|type2] priority expr : term@
 
 \smallskip
-\noindent \code{name} can be any name starting with a letter. \sos use
-the same namespace as constraints.
-\code{term} is defined as in the objective. \code{type1} or
-\code{type2} indicate whether a type-1 or type-2 special ordered set
-is declared. The priority is optional and equal to the priority
-setting for variables.
-Many \sos can be generated with one statement by the use of the
-\code{forall} instruction, as shown above.
+\noindent 
+\code{名称} 可以是任意以字母开头的标识符，\sos 名称与约束名称共享命名空间。
+\code{表达式} 与目标函数中的表达式语法相同。
+\code{type1} 或者 \code{type2}  表示是类型一或是类型二的特殊顺序集。
+\code{优先级} 是可选参数，其含义与变量优先级设置相同。
+通过\code{forall}表述一次性生成多个特殊顺序集，参考如下示例。
+% \noindent \code{name} can be any name starting with a letter. \sos use
+% the same namespace as constraints.
+% \code{term} is defined as in the objective. \code{type1} or
+% \code{type2} indicate whether a type-1 or type-2 special ordered set
+% is declared. The priority is optional and equal to the priority
+% setting for variables.
+% Many \sos can be generated with one statement by the use of the
+% \code{forall} instruction, as shown above.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 sos s1: type1: 100 * x[1] + 200 * x[2] + 400 * x[3];
