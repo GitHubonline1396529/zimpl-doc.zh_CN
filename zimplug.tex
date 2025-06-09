@@ -372,9 +372,9 @@ param c[A] := read "arcs.txt"  as "<1s,2s>3n";
                   Polynomial IP) 问题；此外还有\code{q}\emph{x}格式，用于
                   描述二次无约束0-1优化 (QUBO，即Quadratic Unconstrained 
                   Binary Optimization) 问题，其中\emph{x}为格式选项：
-                  \emph{0}表示使用从零开始的矩阵索引（默认是从1开始），
-                  \emph{c}表示在文件中使用字符\code{c}作为注释行指示符（默
-                  认是\code{\#}），\emph{p}表示在实例文件的首行写入字符
+                  \emph{0}表示使用从零开始的矩阵索引 (默认是从1开始) ，
+                  \emph{c}表示在文件中使用字符\code{c}作为注释行指示符 (默
+                  认是\code{\#}) ，\emph{p}表示在实例文件的首行写入字符
                   \code{p}。 \\
 % -t \emph{format} & Selects the output format. Can be either \code{lp},
 %                   which is default, or \code{mps}, 
@@ -745,8 +745,8 @@ $a$ 必须为非负整数\\
 % \subsection{Tuples and sets}
 \subsection{元组与集合}
 
-元组是具有固定维度的有序矢量，分量为数值或字符串类型。集合内可包含（有限多
-个）元组。每个元组在集合中都是不重复的。在\zimpl 中所有集合都是内部有序的
+元组是具有固定维度的有序矢量，分量为数值或字符串类型。集合内可包含 (有限多
+个) 元组。每个元组在集合中都是不重复的。在\zimpl 中所有集合都是内部有序的
 ，但没有特定的顺序。集合通过花括号来包裹，形如“\code{\{}”和“\code{\}}”。一个集
 合中的所有元组必须具有相同个数的分量。对于一个特定集合中的所有元组，它们各
 自的第$n$个元素的数据类型必须相同，也就是说它们必须全都是数值或者全都是字
@@ -1051,7 +1051,7 @@ set IN          := inter <j> in J : P[j]; # empty!
 \label{ssec:parameters}
 %------------------------------------------------------------------------------
 
-参数（Parameter）是\zimpl 中定义常数的一种方式。参数既可以带有索引集合，
+参数 (Parameter) 是\zimpl 中定义常数的一种方式。参数既可以带有索引集合，
 也可以不带索引。没有索引的参数只是一个单独的值，可以是数字或字符串；
 带索引的参数则为索引集合中的每个元素指定一个对应的值。此外，还可以为参数
 声明一个\emph{default}值。
@@ -1687,7 +1687,7 @@ maximize profit: sum <i> in I : c[i] * x[i];
 % valid expression that evaluates to a number.
 
 
-除了目标函数中使用的线性约束之外，约束语句中还可以包含更高阶（非线性）的项。
+除了目标函数中使用的线性约束之外，约束语句中还可以包含更高阶 (非线性) 的项。
 % Additional to linear constraints as in the objective it is also
 % possible to state terms with higher degree for constraints.
 
