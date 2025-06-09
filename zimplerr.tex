@@ -3,131 +3,180 @@
 % zimpl.c
 %
 \item[101 Bad filename]\ \\
-   The name given with the \code{-o} option is either missing, 
-   a directory name, or starts with a dot.
+   通过\code{-o}参数提供的文件名无效，可能是因为缺少文件名、
+   目录名，或文件名以点开头。
+   % The name given with the \code{-o} option is either missing, 
+   % a directory name, or starts with a dot.
 \item[102 File write error]\ \\
-   Some error occurred when writing to an output file. A description of 
-   the error follows on the next line. For the meaning 
-   consult your OS documentation.
+   写入输出文件时发生错误。错误描述将在下一行显示。有关错误含义，
+   请参阅您的操作系统文档。
+   % Some error occurred when writing to an output file. A description of 
+   % the error follows on the next line. For the meaning 
+   % consult your OS documentation.
 \item[103 Output format not supported, using LP format]\ \\
-   You tried to select another format than \code{lp}, \code{mps},
-   \code{hum}, \code{rlp}, or \code{pip}.
+   尝试选择了除\code{lp}、\code{mps}、\code{hum}、\code{rlp}或
+   \code{pip}之外的格式。
+   % You tried to select another format than \code{lp}, \code{mps},
+   % \code{hum}, \code{rlp}, or \code{pip}.
 \item[104 File open failed]\ \\
-   Some error occurred when trying to open a file for writing. A description of 
-   the error follows on the next line. For the meaning 
-   consult your OS documentation.
+   尝试打开文件进行写入时发生错误。关于错误的描述将在下一行显示。
+   有关错误信息的含义，请参阅您的操作系统文档。
+   % Some error occurred when trying to open a file for writing. A description
+   % of the error follows on the next line. For the meaning 
+   % consult your OS documentation.
 %
 % inst.c
 %
 \item[105 Duplicate constraint name ``xxx'']\ \\
-   Two \code{subto} statements have the same name.
+   两个\code{subto}语句具有相同的名称。
+   % Two \code{subto} statements have the same name.
 \item[106 Empty LHS, constraint trivially violated]\ \\
-   One side of your constraint is empty and the other not equal to
-   zero. Most frequently this happens, when a set to be summed up is empty.
+   约束的一侧为空，而另一侧不等于零。
+   这种情况通常发生在对一个空的集合求和时。
+   % One side of your constraint is empty and the other not equal to
+   % zero. Most frequently this happens, when a set to be summed up is empty.
 \item[107 Range must be $l\leq x\leq u$, or $u \geq x\geq l$]\ \\
-   If you specify a range you must have the same comparison operators
-   on both sides.
-\item[108 Empty Term with nonempty LHS/RHS, constraint trivially
-   violated]\ \\
-   The middle of your constraint is empty and either the left- or
-   right-hand side of the range is not zero.
-   This most frequently happens, when a set to be summed up is empty.
+   如果您指定范围，则必须在两侧使用相同的比较运算符。
+   % If you specify a range you must have the same comparison operators
+   % on both sides.
+\item[108 Empty Term with nonempty LHS/RHS, constraint trivially violated]\ \\
+   约束的中部为空，而约束的左侧或者右侧不等于0。
+   这种情况通常发生在对一个空的集合求和时。
+   % The middle of your constraint is empty and either the left- or
+   % right-hand side of the range is not zero.
+   % This most frequently happens, when a set to be summed up is empty.
 \item[109 LHS/RHS contradiction, constraint trivially violated]\ \\
-   The lower side of your range is bigger than the upper side, e.g.
-   $15\leq x\leq 2$. 
+   取值范围较低的一侧大于较高的一侧，例如$15\leq x\leq 2$。
+   % The lower side of your range is bigger than the upper side, e.g.
+   % $15\leq x\leq 2$. 
 \item[110 Division by zero]\ \\
-   You tried to divide by zero. This is not a good idea.
+   你在尝试除以零。这不是一个好主意。
+   % You tried to divide by zero. This is not a good idea.
 \item[111 Modulo by zero]\ \\
-   You tried to compute a number modulo zero. This does not work well.
+   你在尝试让一个数字参与以0为模的运算，这将是不可行的。
+   % You tried to compute a number modulo zero. This does not work well.
 \item[112 Exponent value \code{xxx} is too big or not an integer]\ \\
-   It is only allowed to raise a number to the power of integers. Also trying to
-   raise a number to the power of more than two billion is 
-   prohibited.\footnote{The behavior of this operation could 
-   easily be implemented as \code{for(;;)} or in a more elaborate way as 
-   \code{void f()\{f();\}}.}
+   只允许对数值计算整数次幂，且幂指数不得超过二十亿。\footnote{
+     这种做法相当于是写了一个死循环\code{for(;;)}，或者更确切地来说就像是在递归
+     \code{void f()\{f();\}}。}
+   % It is only allowed to raise a number to the power of integers. Also trying
+   % to raise a number to the power of more than two billion is 
+   % prohibited.\footnote{The behavior of this operation could 
+   % easily be implemented as \code{for(;;)} or in a more elaborate way as 
+   % \code{void f()\{f();\}}.}
 \item[113 Factorial value \code{xxx} is too big or not an integer]\ \\
-   You can only compute the factorial of integers.
-   Also computing the factorial of a number bigger then two billion
-   is generally a bad idea. See also Error 115.
+   你只能计算整数阶的阶乘。同时，计算一个超过二十亿的数的阶乘通常是一个坏主意。
+   另请参阅报错115。
+   % You can only compute the factorial of integers.
+   % Also computing the factorial of a number bigger then two billion
+   % is generally a bad idea. See also Error 115.
 \item[114 Negative factorial value]\ \\
-   To compute the factorial of a number it has to be positive.
-   In case you need it for a negative number, remember that for all 
-   even numbers the outcome will be positive and for all odd number negative.
+   你只能计算正数的阶乘。如果您需要为负数计算阶乘，请注意，
+   对于所有偶数，结果将是正数，对于所有奇数，结果将是负数。
+   % To compute the factorial of a number it has to be positive.
+   % In case you need it for a negative number, remember that for all 
+   % even numbers the outcome will be positive and for all odd number negative.
 \item[115 Timeout!]\ \\
-   You tried to compute a number bigger than $1000!$. 
-   See also the footnote to Error 112.
-\item[116 Illegal value type in min: \code{xxx} only numbers are
-   possible]\ \\
-   You tried to build the minimum of some strings.
-\item[117 Illegal value type in max: \code{xxx} only numbers are
-   possible]\ \\
-   You tried to build the maximum of some strings.
+   你在尝试计算一个大于$1000!$的数。另请参阅报错112的脚注。
+   % You tried to compute a number bigger than $1000!$. 
+   % See also the footnote to Error 112.
+\item[116 Illegal value type in min: \code{xxx} only numbers are possible]\ \\
+   你在尝试计算一些字符串的最小值。
+   % You tried to build the minimum of some strings.
+\item[117 Illegal value type in max: \code{xxx} only numbers are possible]\ \\
+   你在尝试计算一些字符串的最大值。
+   % You tried to build the maximum of some strings.
 \item[118 Comparison of different types]\ \\
-   You tried to compare apples with oranges, i.e, numbers with
-   strings. Note that the use of an undefined parameter can also
-   lead to this message.
+   你在尝试比较不同类型的数据，例如比较数字和字符串。
+   请注意，使用未定义的参数也可能导致此消息。
+   % You tried to compare apples with oranges, i.e, numbers with
+   % strings. Note that the use of an undefined parameter can also
+   % lead to this message.
 \item[119 \code{xxx} of sets with different dimension]\ \\
-   To apply Operation \code{xxx} (union, minus, intersection, symmetric
-   difference) on two sets, 
-   both must have the same dimension tuples,\ie
-   the tuples must have the same number of components.
+   要对两个集合应用操作\code{xxx} (取并集、差集、交集、对称差集)，
+   它们必须具有相同维度的元组，这也就是说，每个元组必须包含相同个数的分量。
+   % To apply Operation \code{xxx} (union, minus, intersection, symmetric
+   % difference) on two sets, 
+   % both must have the same dimension tuples,\ie
+   % the tuples must have the same number of components.
 \item[120 Minus of incompatible sets]\ \\
-   To apply Operation \code{xxx} (union, minus, intersection, symmetric
-   difference) on two sets, 
-   both must have tuples of the same type,\ie
-   the components of the tuples must have the same type (number,
-   string).
+   要对两个集合应用操作xxx (并集、差集、交集、对称差集) ，
+   它们必须具有相同变量类型的元组，这也就是说，
+   元组中的每个分量必须是相同的数据类型 (数字、字符串) 。
+   % To apply Operation \code{xxx} (union, minus, intersection, symmetric
+   % difference) on two sets, 
+   % both must have tuples of the same type,\ie
+   % the components of the tuples must have the same type (number,
+   % string).
 \item[121 Negative exponent on variable]\ \\
-   The exponent to a variable was negative. This is not supported.
+   变量的指数为负数。不支持这种定义方式。
+   % The exponent to a variable was negative. This is not supported.
 %\item[122]\ \\
-\item[123 ``from'' value \code{xxx} is too big or not an
-   integer]\ \\
-   To generate a set, the ``from'' number must be an integer with an
-   absolute value of less than two billion.
-\item[124 ``upto'' value \code{xxx} is too big or not an
-   integer]\ \\
-   To generate a set, the ``upto'' number must be an integer with an
-   absolute value of less than two billion.
-\item[125 ``step'' value \code{xxx} is too big or not an
-   integer]\ \\
-   To generate a set, the ``step'' number must be an integer with an
-   absolute value of less than two billion.
+\item[123 ``from'' value \code{xxx} is too big or not an integer]\footnote{
+     \textbf{译者注}：原手册\LaTeX 源码中关于报错122的行被注释掉了，
+     原因未知。译者猜测该编号对应的报错可能已经在新版本中被移除，目前是空号。
+   }\ \\
+   如果要生成集合，``from'' 后的数字必须是一个绝对值小于二十亿的整数。
+   % To generate a set, the ``from'' number must be an integer with an
+   % absolute value of less than two billion.
+\item[124 ``upto'' value \code{xxx} is too big or not an integer]\ \\
+   如果要生成集合，``upto'' 后的数字必须是一个绝对值小于二十亿的整数。
+   % To generate a set, the ``upto'' number must be an integer with an
+   % absolute value of less than two billion.
+\item[125 ``step'' value \code{xxx} is too big or not an integer]\ \\
+   如果要生成集合，``step'' 后的数字必须是一个绝对值小于二十亿的整数。
+   % To generate a set, the ``step'' number must be an integer with an
+   % absolute value of less than two billion.
 \item[126 Zero ``step'' value in range]\ \\
-   The given ``step'' value for the generation of a set is
-   zero. So the ``upto'' value can never be reached. 
+   给定的 ``step'' (步长) 为零，因此永远无法达到 ``upto'' 的值。
+   % The given ``step'' value for the generation of a set is
+   % zero. So the ``upto'' value can never be reached. 
 \item[127 Illegal value type in tuple: \code{xxx} only numbers are
    possible]\ \\
-   The selection tuple in a call to the \code{proj} function can
-   only contain numbers.
+   \code{proj}函数中调用的选择元组 (selection tuple) 只能包含数字。
+   % The selection tuple in a call to the \code{proj} function can
+   % only contain numbers.
 \item[128 Index value \code{xxx} in proj too big or not an integer]\ \\
-   The value given in a selection tuple of a \code{proj} function is
-   not an integer or bigger than two billion.
-\item[129 Illegal index \code{xxx}, set has only dimension
-   \code{yyy}]\ \\
-   The index value given in a selection tuple is bigger than the
-   dimension of the tuples in the set.
+   \code{proj}函数的选择元组中的值不是整数或超过了二十亿。
+   % The value given in a selection tuple of a \code{proj} function is
+   % not an integer or bigger than two billion.
+\item[129 Illegal index \code{xxx}, set has only dimension \code{yyy}]\ \\
+   选择元组中的索引值大于被索引集合中元组的维度。
+   % The index value given in a selection tuple is bigger than the
+   % dimension of the tuples in the set.
 % Removed in 2.02
 %\item[130 Duplicate index \code{xxx} for initialization]\ \\
 %   In the initialization of a indexed set, two initialization elements
 %   have the same index. 
 %   E.g, \code{set A[] := $<$1$>$ \{ 1 \}, $<$1$>$ \{ 2 \};}
-\item[131 Illegal element \code{xxx} for symbol]\ \\
-   The index tuple used in the initialization list of a index set, is
-   not member of the index set of the set.
-   E.g, \code{set A[\{ 1 to 5 \}] := $<$1$>$ \{ 1 \}, $<$6$>$ \{ 2 \};}
+\item[131 Illegal element \code{xxx} for symbol]\footnote{\textbf{译者注}：
+     报错130在版本2.02中被移除，因此129紧随报错131。
+   }\ \\
+   索引集初始化列表中使用的索引元组不是集合的索引集的成员。例如：
+   \code{set A[\{ 1 to 5 \}] := $<$1$>$ \{ 1 \}, $<$6$>$ \{ 2 \};}。
+   % The index tuple used in the initialization list of a index set, is
+   % not member of the index set of the set.
+   % E.g, \code{set A[\{ 1 to 5 \}] := $<$1$>$ \{ 1 \}, $<$6$>$ \{ 2 \};}
 \item[132 Values in parameter list missing, probably wrong read
-  template]\ \\
-  Probably the template of a read statement looks
-  like \code{"$<$1n$>$"} only having a tuple, instead of \code{"$<$1n$>$ 2n"}.
+   template]\ \\
+   可能是read语句的模板形如\code{"$<$1n$>$"}，只有一个元组，而不是
+   \code{"$<$1n$>$ 2n"}。
+   % Probably the template of a read statement looks
+   % like \code{"$<$1n$>$"} only having a tuple, instead of
+   % \code{"$<$1n$>$ 2n"}.
 \item[133 Unknown symbol \code{xxx}]\ \\
-  A name was used that is not defined anywhere in scope.
+   使用了没有在作用域内定义的名称。
+   % A name was used that is not defined anywhere in scope.
 \item[134 Illegal element \code{xxx} for symbol]\ \\
-  The index tuple given in the initialization is not member of the
-  index set of the parameter.
+   初始化中给出的索引元组不是参数的索引集的成员。
+   % The index tuple given in the initialization is not member of the
+   % index set of the parameter.
 \item[135 Index set for parameter \code{xxx} is empty]\ \\
-  The attempt was made to declare an indexed parameter with the
-  empty set as index set. Most likely the index set has a \code{with}
-  clause which has rejected all elements.
+  尝试声明一个索引集为空的索引参数。很可能是索引集有一个\code{with}子句，
+  它拒绝了所有元素。
+  % The attempt was made to declare an indexed parameter with the
+  % empty set as index set. Most likely the index set has a \code{with}
+  % clause which has rejected all elements.
 %
 % space here
 %
