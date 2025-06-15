@@ -328,10 +328,13 @@
 %
 \item[170 Uninitialized local parameter \code{xxx} in call of
   define \code{yyy}]\ \\
-  A define was called and one of the arguments was a ``name'' 
-  (of a variable) for which no value was defined.
+  调用函数定义 (define) 时，其中一个参数是一个``名称''
+  (变量的名称)，但没有为其定义值。
+  % A define was called and one of the arguments was a ``name'' 
+  % (of a variable) for which no value was defined.
 \item[171 Wrong number of arguments (\code{xxx} instead of \code{yyy})
   for call of define \code{zzz}]\ \\
+  调用define时，参数数量与定义的不同。
   A define was called with a different number of arguments than in
   its definition.
 \item[172 Wrong number of entries (\code{xxx}) in table line, 
