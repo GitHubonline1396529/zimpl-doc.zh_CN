@@ -1918,16 +1918,21 @@ sos s3: forall <i> in I with i > 2:
 }
 
 %------------------------------------------------------------------------------
-\subsubsection{Extended constraints}
+\subsubsection{扩展约束}
+% \subsubsection{Extended constraints}
 %------------------------------------------------------------------------------
-\zimpl can generate systems of constraints that
-mimic conditional constraints. The general syntax is as follows (note
-that the \code{else} part is optional):
+\zimpl 可以模仿条件约束的形式生成约束系。
+其一般的语法形式如下所示 (注意 \code{else} 的部分是可选的)：
+% \zimpl can generate systems of constraints that
+% mimic conditional constraints. The general syntax is as follows (note
+% that the \code{else} part is optional):
 
 \smallskip
 \centerline{
-\code{vif} \emph{boolean-constraint} \code{then} \emph{constraint}
-[ \code{else} \emph{constraint} ] \code{end}}
+\code{vif} \emph{逻辑约束式} \code{then} \emph{约束式}
+[ \code{else} \emph{约束式} ] \code{end}}
+% \code{vif} \emph{boolean-constraint} \code{then} \emph{constraint}
+% [ \code{else} \emph{constraint} ] \code{end}}
 
 \smallskip
 \noindent where \emph{boolean-constraint} consists of a linear expression involving
