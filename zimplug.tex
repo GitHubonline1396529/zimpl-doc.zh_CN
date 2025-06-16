@@ -1935,19 +1935,29 @@ sos s3: forall <i> in I with i > 2:
 % [ \code{else} \emph{constraint} ] \code{end}}
 
 \smallskip
-\noindent where \emph{boolean-constraint} consists of a linear expression involving
-variables. All these variables have to be bounded integer or binary
-variables. It is not possible to use any continuous variables or integer
-variables with infinite bounds in a \emph{boolean-constraint}.
-All comparison operators ($<$, $\le$, $==$, $!\!\!=$, $\ge$, $>$) are
-allowed. Also, the combination of several terms with \code{and},
-\code{or}, and \code{xor} and negation with \code{not} is possible.
-The conditional constraints (those which follow after \code{then} or
-\code{else}) may include bounded continuous variables.
-Be aware that using this construct will lead to
-the generation of several additional constraints and variables.
+\noindent 其中 \emph{逻辑约束} 是由一个调用变量的线性表达式构成的。
+所有的这些变量都必须是含上下界的整型或者二元变量。
+在 \emph{逻辑表达式} 中，不得使用任何连续变量或者无限上下界的整型变量。
+所有的比较运算符 ($<$, $\le$, $==$, $!\!\!=$, $\ge$, $>$) 都是允许使用的。
+与此同时，多个语句也可以通过 \code{and}、\code{or} 和 \code{xor}
+关键字相连接，也可以通过 \code{not} 关键字取反。
+而在条件约束 (紧随在 \code{then} 或者 \code{else} 后的约束) 当中，
+可以包含具有上下界的连续型变量。
+需要注意，使用这一结构可能会生成数个多余的约束和变量。
+% \noindent where \emph{boolean-constraint} consists of a linear expression involving
+% variables. All these variables have to be bounded integer or binary
+% variables. It is not possible to use any continuous variables or integer
+% variables with infinite bounds in a \emph{boolean-constraint}.
+% All comparison operators ($<$, $\le$, $==$, $!\!\!=$, $\ge$, $>$) are
+% allowed. Also, the combination of several terms with \code{and},
+% \code{or}, and \code{xor} and negation with \code{not} is possible.
+% The conditional constraints (those which follow after \code{then} or
+% \code{else}) may include bounded continuous variables.
+% Be aware that using this construct will lead to
+% the generation of several additional constraints and variables.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 var x[I] integer >= 0 <= 20;
