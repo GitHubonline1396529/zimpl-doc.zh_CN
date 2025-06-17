@@ -2026,7 +2026,7 @@ subto c2: vif vabs(x[1] + x[2]) > 2 then x[3] == 2 end;
 $\Delta_f$ 表示每种膳食可接受的最大份数。
 已知每种食物的价格 $c_f$，我们需要找到一个满足所有限制条件且总成本最低的膳食配择方案。
 为此，为每个 $f \in F$ 引入一个整型变量 $x_f$，用以表示提供膳食 $f$ 的份数。
-使用整型变量是因为只提供整份的食物，也就是说，不能选择提供半个鸡蛋。
+使用整型变量是因为只提供整份的食物，这也就是说，不能选择半份鸡蛋。
 则该问题可以被定义为：
 % Given a set of foods $F$ and a set of nutrients $N$, we have a table
 % $\pi_{fn}$ of the amount of nutrient $n$ in food $f$. Now $\Pi_n$
@@ -2045,7 +2045,7 @@ $\Delta_f$ 表示每种膳食可接受的最大份数。
 x_{f}&\in\NNZ&&\fa f\in F
 \end{align*}
 
-\noindent 将其转述为\zimpl 如下所示：
+\noindent 将其转述为\zimpl 后如下所示：
 % \noindent This translates into \zimpl as follows:
 
 \medskip
@@ -2080,15 +2080,17 @@ subto need: forall <n> in Nutrients do
 \end{lstlisting}
 
 \medskip
-\noindent The cheapest meal satisfying all requirements costs 97 cents and
-consists of four servings of oatmeal, five servings of milk and two
-servings of pie.
+\noindent 满足所有要求的最便宜的一餐价格为97美分，包括四份燕麦片、五份牛奶和两份馅饼。
+% \noindent The cheapest meal satisfying all requirements costs 97 cents and
+% consists of four servings of oatmeal, five servings of milk and two
+% servings of pie.
 
 %x$Oatmeal                     4.000000
 %x$Milk                        5.000000
 %x$Pie                         2.000000
 
-\subsection{The traveling salesman problem}
+\subsection{旅行商问题}
+% \subsection{The traveling salesman problem}
 In this example, we show how to generate an exponential
 description of the \emph{symmetric traveling salesman problem} (\tsp)
 as given for example in
