@@ -328,67 +328,87 @@
 %
 \item[170 Uninitialized local parameter \code{xxx} in call of
   define \code{yyy}]\ \\
-  调用函数定义 (define) 时，其中一个参数是一个``名称''
+  调用定义 (define) 时，其中一个参数是一个``名称''
   (变量的名称)，但没有为其定义值。
   % A define was called and one of the arguments was a ``name'' 
   % (of a variable) for which no value was defined.
 \item[171 Wrong number of arguments (\code{xxx} instead of \code{yyy})
   for call of define \code{zzz}]\ \\
-  调用define时，参数数量与定义的不同。
-  A define was called with a different number of arguments than in
-  its definition.
+  调用定义 (define) 时，参数数量与定义的不同。
+  % A define was called with a different number of arguments than in
+  % its definition.
 \item[172 Wrong number of entries (\code{xxx}) in table line, 
   expected \code{yyy} entries]\ \\
-  Each line of a parameter initialization table must have
-  exactly the same number of entries as the index (first) line of
-  the table.
+  初始化参数表时，每一行输入的元素的个数 (entries)
+  必须与表的索引行 (第一行) 相同。
+  % Each line of a parameter initialization table must have
+  % exactly the same number of entries as the index (first) line of
+  % the table.
 \item[173 Illegal type in element \code{xxx} for symbol]\ \\
-  A parameter can only have a single value type. Either numbers or
-  strings. In the initialization both types were present.
+  一个参数表只能有一个数据类型，要么是数字，要么是字符串。
+  在初始化过程中同时指定了两种类型。
+  % A parameter can only have a single value type. Either numbers or
+  % strings. In the initialization both types were present.
 %
 % iread.c
 %
 \item[174 Numeric field \code{xxx} read as \code{"yyy"}. This is not a
   number]\ \\
-  It was tried to read a field with an 'n' designation in the template,
-  but what was read is not a valid number.
+  试图读取一个在模板中指定为 `n' 的字段，但读取的内容不是有效的数字。
+  % It was tried to read a field with an 'n' designation in the template,
+  % but what was read is not a valid number.
 %
 % zimpl.c
 %
 \item[175 Illegal syntax for command line define \code{"xxx"} --
   ignored] (warning)\\
-  A parameter definition using the command line \code{-D} flag, must
-  have the form \code{name=value}. The \code{name} must be a legal
-  identifier, \ie it has to start with a letter and may consist only out
-  of letters and numbers including the underscore. 
+  使用命令行选项 \code{-D} 指定的参数必须匹配 \code{name=value} 的格式。
+  其中 \code{name} 必须是一个合法的标识符，这也就是说，它必须以字母开头，
+  并且只能由字母、数字和下划线组成。
+  % A parameter definition using the command line \code{-D} flag, must
+  % have the form \code{name=value}. The \code{name} must be a legal
+  % identifier, \ie it has to start with a letter and may consist only out
+  % of letters and numbers including the underscore. 
 %
 % vinst.c
 %
 \item[176 Empty LHS, in Boolean constraint] (warning)\ \\
-   The left hand side, \ie the term with the variables, is empty. 
+  (逻辑约束的) 左半边为空，这也就是说，包含变量的项式为空。
+  % The left hand side, \ie the term with the variables, is empty. 
 \item[177 Boolean constraint not all integer]\ \\
-   No continuous (real) variables are allowed in a Boolean constraint.
+  在逻辑约束中，不允许出现连续型 (实型) 变量。 
+  % No continuous (real) variables are allowed in a Boolean constraint.
 \item[178 Conditional always true or false due to bounds] (warning)\ \\
-   All or part of a Boolean constraint are always either true or
-   false, due to the bounds of variables.
+  由于变量的上下界，逻辑约束的全部或部分始终为真或者假。
+  % All or part of a Boolean constraint are always either true or
+  % false, due to the bounds of variables.
 \item[179 Conditional only possible on bounded constraints]\ \\
-   A Boolean constraint has at least one variable without finite bounds.
+  在某个逻辑约束中至少存在一个变量没有有限边界。
+  % A Boolean constraint has at least one variable without finite bounds.
 \item[180 Conditional constraint always true due to bounds] (warning)\ \\
-   The result part of a conditional constraint is always true anyway. 
-   This is due to the bounds of the variables involved.
+  条件约束的结果部分恒为真。这是由于包含了变量的上下界。
+  % The result part of a conditional constraint is always true anyway. 
+  % This is due to the bounds of the variables involved.
 \item[181 Empty LHS, not allowed in conditional constraint]\ \\
-   The result part of a conditional constraint may not be empty.
+  条件约束的结果部分不能为空。
+  % The result part of a conditional constraint may not be empty.
 \item[182 Empty LHS, in variable vabs]\ \\
-   There are no variables in the argument to a \code{vabs} function.
-   Either everything is zero, or just use \code{abs}.
+  \code{vabs} 函数的参数当中没有变量。要么所有的值都会被归零，
+  要么只需使用 \code{abs} 即可。
+  % There are no variables in the argument to a \code{vabs} function.
+  % Either everything is zero, or just use \code{abs}.
 \item[183 vabs term not all integer]\ \\
-   There are non integer variables in the argument to a \code{vabs} function.
-   Due to numerical reasons continuous variables are not allowed as
-   arguments to \code{vabs}. 
+  \code{vabs} 函数的声明中包含了非整型变量。由于数值的原因 (numerical reason)，
+  不允许将连续型变量作为参数传递给 \code{vabs}。
+  % There are non integer variables in the argument to a \code{vabs} function.
+  % Due to numerical reasons continuous variables are not allowed as
+  % arguments to \code{vabs}. 
 \item[184 vabs term not bounded]\ \\
+  \code{vabs} 函数内的项式中至少包含一个无界变量。
    The term inside a \code{vabs} has at least one unbounded variable.
 \item[185 Term in Boolean constraint not bounded]\ \\
-   The term inside a \code{vif} has at least one unbounded variable.
+  \code{vif} 内的项式中至少包含一个无界变量。
+  % The term inside a \code{vif} has at least one unbounded variable.
 %
 % inst.c
 %
