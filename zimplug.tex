@@ -1971,19 +1971,26 @@ subto c3: forall <i> in I with i < max(I) :
 }
 
 %------------------------------------------------------------------------------
-\subsubsection{Extended functions}
+\subsubsection{扩展函数}
+% \subsubsection{Extended functions}
 %------------------------------------------------------------------------------
-It is possible to use special functions on terms with variables that
-will automatically be converted into a system of inequalities. The
-arguments of these functions have to be linear terms consisting of
-bounded integer or binary variables. At the moment only the function
-\code{vabs(t)} that computes the absolute value of the term \code{t}
-is implemented, but functions like the minimum or the maximum of two
-terms, or the sign of a term can be implemented in a similar manner.
-Again, using this construct will lead to
-the generation of several additional constraints and variables.
+可以在包含变量的项式上使用特殊的函数，这些函数将自动地被转换为一组不等式。
+这些函数的参数必须是仅由有上下界的整型变量或二元变量构成的线性项式。
+目前仅实现了计算项 \code{t} 的绝对值的函数 \code{vabs(t)}，但其他函数
+(如两项的最小值、最大值或一个项的符号函数) 可以类似的方式实现。
+同样，使用此构造将导致生成若干个多余的约束和变量。
+% It is possible to use special functions on terms with variables that
+% will automatically be converted into a system of inequalities. The
+% arguments of these functions have to be linear terms consisting of
+% bounded integer or binary variables. At the moment only the function
+% \code{vabs(t)} that computes the absolute value of the term \code{t}
+% is implemented, but functions like the minimum or the maximum of two
+% terms, or the sign of a term can be implemented in a similar manner.
+% Again, using this construct will lead to
+% the generation of several additional constraints and variables.
 
-\subsubsection{Examples}
+\subsubsection{示例}
+% \subsubsection{Examples}
 {\small
 \begin{verbatim}
 var x[I] integer >= -5 <= 5;
