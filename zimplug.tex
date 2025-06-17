@@ -1943,7 +1943,7 @@ sos s3: forall <i> in I with i > 2:
 关键字相连接，也可以通过 \code{not} 关键字进行取反。
 而在条件约束 (紧随在 \code{then} 或者 \code{else} 后的约束) 当中，
 可以包含具有上下界的连续型变量。
-需要注意，使用这一结构可能会生成数个多余的约束和变量。
+需要注意，使用这一结构可能会生成若干个额外的约束和变量。
 % \noindent where \emph{boolean-constraint} consists of a linear expression involving
 % variables. All these variables have to be bounded integer or binary
 % variables. It is not possible to use any continuous variables or integer
@@ -1978,7 +1978,7 @@ subto c3: forall <i> in I with i < max(I) :
 这些函数的参数必须是仅由有上下界的整型变量或二元变量构成的线性项式。
 目前仅实现了计算项 \code{t} 的绝对值的函数 \code{vabs(t)}，但其他函数
 (如两项的最小值、最大值或一个项的符号函数) 可以类似的方式实现。
-同样，使用此构造将导致生成若干个多余的约束和变量。
+同样，使用此构造将导致生成若干个额外的约束和变量。
 % It is possible to use special functions on terms with variables that
 % will automatically be converted into a system of inequalities. The
 % arguments of these functions have to be linear terms consisting of
@@ -2003,26 +2003,41 @@ subto c2: vif vabs(x[1] + x[2]) > 2 then x[3] == 2 end;
 
 
 \clearpage
-\section{Modeling examples}\label{modelingexamples}
-In this section we show some examples of well-known problems
-translated into \zimpl format.
+\section{建模示例}\label{modelingexamples}
+% \section{Modeling examples}\label{modelingexamples}
+在本节中，我们讲通过若干示例，
+展示如何将一些众所周知的规划问题转述为\zimpl 的形式。
+% In this section we show some examples of well-known problems
+% translated into \zimpl format.
 
-\subsection{The diet problem}
-This is the first example in
-\cite[Chapter 1, page 3]{Chvatal1983}.
-It is a classic so-called \emph{diet} problem, see for example
-\cite{Dantzig1990} about its implications in practice.
+\subsection{食谱问题}
+% \subsection{The diet problem}
+该问题源于\cite[Chapter 1, page 3]{Chvatal1983}中的第一个示例。
+这是一个经典的\emph{食谱问题}，
+有关其实际应用意义，可参见示例\cite{Dantzig1990}。
+% This is the first example in
+% \cite[Chapter 1, page 3]{Chvatal1983}.
+% It is a classic so-called \emph{diet} problem, see for example
+% \cite{Dantzig1990} about its implications in practice.
 
-Given a set of foods $F$ and a set of nutrients $N$, we have a table
-$\pi_{fn}$ of the amount of nutrient $n$ in food $f$. Now $\Pi_n$
-defines how much intake of each nutrient is needed. $\Delta_f$
-denotes for each food the maximum number of servings acceptable.
-Given prices $c_f$ for each food, we have to find a selection of foods
-that obeys the restrictions and has minimal cost. An integer
-variable $x_f$ is introduced for each $f\in F$ indicating the number of servings of
-food $f$. Integer variables are used, because only complete servings can be
-obtained, \ie half an egg is not an option.
-The problem may be stated as:
+给定一膳食的集合 $F$ 和一营养素的集合 $N$，
+有一张表 $\pi_{n}$ 列举了每一种膳食 $f$ 中营养素 $n$ 的含量。
+现给定参数 $\Pi_n$，定义为每种营养素的最低摄入量；
+$\Delta_f$ 表示每种膳食可接受的最大份数。
+已知每种食物的价格 $c_f$，我们需要找到一个满足所有限制条件且总成本最低的膳食配择方案。
+为此，为每个 $f \in F$ 引入一个整型变量 $x_f$，用以表示提供膳食 $f$ 的份数。
+使用整型变量是因为只提供整份的食物，也就是说，不能选择提供半个鸡蛋。
+则该问题可以被定义为：
+% Given a set of foods $F$ and a set of nutrients $N$, we have a table
+% $\pi_{fn}$ of the amount of nutrient $n$ in food $f$. Now $\Pi_n$
+% defines how much intake of each nutrient is needed. $\Delta_f$
+% denotes for each food the maximum number of servings acceptable.
+% Given prices $c_f$ for each food, we have to find a selection of foods
+% that obeys the restrictions and has minimal cost. An integer
+% variable $x_f$ is introduced for each $f\in F$ indicating the number of servings of
+% food $f$. Integer variables are used, because only complete servings can be
+% obtained, \ie half an egg is not an option.
+% The problem may be stated as:
 \begin{align*}
 \min&\sum_{f\in F}c_{f} x_{f}&&\mbox{subject to}\nonumber\\
 \sum_{f\in F} \pi_{fn} x_{f}&\ge\Pi_n&&\fa n\in N\nonumber\\
@@ -2030,7 +2045,8 @@ The problem may be stated as:
 x_{f}&\in\NNZ&&\fa f\in F
 \end{align*}
 
-\noindent This translates into \zimpl as follows:
+\noindent 将其转述为\zimpl 如下所示：
+% \noindent This translates into \zimpl as follows:
 
 \medskip
 \lstset{language=zimpl,%
