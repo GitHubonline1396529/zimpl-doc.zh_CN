@@ -624,7 +624,7 @@ $a$ 必须为非负整数\\
 \code{random(m,n)}               &伪随机数                   &$\in[m,n]$, rational \\
 % \code{random(m,n)}               & pseudo random number     &$\in[m,n]$, rational \\
 
-\code{ord(A,n,c)}                &序数                      &集合$A$中第n个元素的第c个成分\\
+\code{ord(A,n,c)}                &序数                      &集合$A$中第n个元素的第c个分量\\
 % \code{ord(A,n,c)}                &ordinal                   &c-th component of the n-th\\
 %                                  &                          & element of set $A$.\\
 
@@ -745,15 +745,15 @@ $a$ 必须为非负整数\\
 % \subsection{Tuples and sets}
 \subsection{元组与集合}
 
-元组是具有固定维度的有序矢量，分量为数值或字符串类型。集合内可包含 (有限多
-个) 元组。每个元组在集合中都是不重复的。在\zimpl 中所有集合都是内部有序的
-，但没有特定的顺序。集合通过花括号来包裹，形如“\code{\{}”和“\code{\}}”。一个集
-合中的所有元组必须具有相同个数的分量。对于一个特定集合中的所有元组，它们各
-自的第$n$个元素的数据类型必须相同，也就是说它们必须全都是数值或者全都是字
-符串。元组的定义通过尖括号$<$和$>$包裹，示例如\code{$<$1,2,"x"$>$}。各个分
-量通过逗号分隔。如果元组是一维的，则可以在一列元素中省略元组的包裹符，但在
-这种情况下，定义中的所有元组都必须省略它们。比如\code{\{1,2,3\}}是合法的定
-义，而\code{\{1,2,$<$3$>$\}}是不合法的。
+元组是具有固定维度的有序矢量，分量为数值或字符串类型。
+集合内可包含 (有限多个) 元组。每个元组在集合中都是不重复的。
+在\zimpl 中所有集合都是内部有序的，但没有特定的顺序。集合通过花括号来包裹，
+形如“\code{\{}”和“\code{\}}”。一个集合中的所有元组必须具有相同个数的分量。
+对于一个特定集合中的所有元组，它们各自的第$n$个分量的数据类型必须相同，
+也就是说它们必须全都是数值或者全都是字符串。元组的定义通过尖括号$<$和$>$包裹，
+示例如\code{$<$1,2,"x"$>$}。各个分量通过逗号分隔。如果元组是一维的，
+则可以在一列元素中省略元组的包裹符，但在这种情况下，定义中的所有元组都必须省略它们。
+比如\code{\{1,2,3\}}是合法的定义，而\code{\{1,2,$<$3$>$\}}是不合法的。
 % A tuple is an ordered vector of fixed dimension where each component
 % is either a number or a string. Sets consist of (a finite number of)
 % tuples. Each tuple is unique within a set. All sets in \zimpl are
@@ -1219,7 +1219,7 @@ Moin   7  2
 \end{verbatim}
 }
 
-\noindent 对于元组的每一个组成部分，都需要指定使用哪一个字段，
+\noindent 对于元组的每一个分量，都需要指定使用哪一个字段，
 并在其后标明该字段的类型：若字段应被解释为数值，则写 \code{n}；
 若应作为字符串处理，则写 \code{s}。在模板之后，
 可以添加一些可选修饰项，顺序不限：
@@ -1389,8 +1389,8 @@ stream.txt:
 
 \smallskip
 \noindent 可以用一个冒号“\code{:}”来代替 \code{do}，也可以用竖划线“\code{|}”
-来代替 \code{with}。组成 \emph{元组} 的元素的个数必须与组成 \emph{集合} 的元素
-个数相匹配，\code{with} 和 \emph{逻辑表达式} 的这部分是可选的。\emph{集合}
+来代替 \code{with}。组成“\emph{元组}”的分量的个数必须与组成“\emph{集合}”的元素
+个数相匹配，\code{with} 和“\emph{逻辑表达式}”的这部分是可选的。“\emph{集合}”
 这部分可以使用任何表达式的形式表述的集合。示例将会在下一节中给出。
 % \noindent It is allowed to write a colon \code{:} instead of \code{do} and a
 % vertical bar \code{|} instead of \code{with}.
