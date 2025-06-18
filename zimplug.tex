@@ -2020,12 +2020,12 @@ subto c2: vif vabs(x[1] + x[2]) > 2 then x[3] == 2 end;
 % It is a classic so-called \emph{diet} problem, see for example
 % \cite{Dantzig1990} about its implications in practice.
 
-给定一膳食的集合 $F$ 和一营养素的集合 $N$，
-有一张表 $\pi_{n}$ 列举了每一种膳食 $f$ 中营养素 $n$ 的含量。
+给定一食物种类的集合 $F$ 和一营养素的集合 $N$，
+有一张表 $\pi_{n}$ 列举了每一种食物 $f$ 中营养素 $n$ 的含量。
 现给定参数 $\Pi_n$，定义为每种营养素的最低摄入量；
-$\Delta_f$ 表示每种膳食可接受的最大份数。
+$\Delta_f$ 表示每种食物可接受的最大份数。
 已知每种食物的价格 $c_f$，我们需要找到一个满足所有限制条件且总成本最低的膳食配择方案。
-为此，为每个 $f \in F$ 引入一个整型变量 $x_f$，用以表示提供膳食 $f$ 的份数。
+为此，为每个 $f \in F$ 引入一个整型变量 $x_f$，用以表示提供食物 $f$ 的份数。
 使用整型变量是因为只提供整份的食物，这也就是说，不能选择半份鸡蛋。
 则该问题可以被定义为：
 % Given a set of foods $F$ and a set of nutrients $N$, we have a table
@@ -2091,15 +2091,22 @@ subto need: forall <n> in Nutrients do
 
 \subsection{旅行商问题}
 % \subsection{The traveling salesman problem}
-In this example, we show how to generate an exponential
-description of the \emph{symmetric traveling salesman problem} (\tsp)
-as given for example in
-\cite[Section 58.5]{Schrijver2003}.
+本例展示如何生成“\emph{对称旅行商问题}” (\tsp) 的指数级描述\footnote{
+  译者注：此处原文为“exponential description”，译者揣测其含义指是
+  \tsp 的完整数学模型中的 DFJ ESCs 的数量随城市规模呈指数级增长。
+}，按 \cite[Section 58.5]{Schrijver2003} 中的示例所述。
+% In this example, we show how to generate an exponential
+% description of the \emph{symmetric traveling salesman problem} (\tsp)
+% as given for example in
+% \cite[Section 58.5]{Schrijver2003}.
 
-Let $G=(V,E)$ be a complete graph, with $V$ being the set of cities
-and $E$ being the set of links between the cities. Introducing binary
-variables $x_{ij}$ for each $(i,j)\in E$ indicating if edge $(i,j)$ is
-part of the tour, the \tsp can be written as:
+令 $G=(V,E)$ 为一完全连通图，其中 $V$ 表示城市集合，$E$ 表示城市间的连接边集合。
+为每条边 $(i,j)\in E$ 引入二元变量 $x_{ij}$ 以指示边 $(i,j)$ 
+是否被选择作为该环游的一部分，则 \tsp 模型可表述为：
+% Let $G=(V,E)$ be a complete graph, with $V$ being the set of cities
+% and $E$ being the set of links between the cities. Introducing binary
+% variables $x_{ij}$ for each $(i,j)\in E$ indicating if edge $(i,j)$ is
+% part of the tour, the \tsp can be written as:
 \begin{align*}
 \min &\sum_{(i,j)\in E}d_{ij} x_{ij}&&\text{subject to}\nonumber\\
 \sum_{(i,j)\in\delta_v} x_{ij}&=2&&\fa v\in V\nonumber\\
@@ -2108,8 +2115,10 @@ U\neq V\\
 x_{ij}&\in\{0,1\}&&\fa (i,j)\in E\nonumber
 \end{align*}
 %
-The data is read in from a file that gives the number of the city and the
-x and y coordinates. Distances between cities are assumed Euclidean. For example:
+相关数据从文件中读取，文件提供了城市的编号及其 $x$ 和 $y$ 坐标。
+假设城市间距离采用欧几里得距离计算。如下例所示：
+% The data is read in from a file that gives the number of the city and the
+% x and y coordinates. Distances between cities are assumed Euclidean. For example:
 {\footnotesize
 \setlength\columnseprule{0.4pt}
 \begin{multicols}{2}
@@ -2138,6 +2147,11 @@ Jena       5093 1158
 \end{multicols}
 }
 
+%% 下面的注释不是在翻译的时候产生的，而是原作者注释掉了这些数据，
+%% 但是却依然包含在文档的源码里面发布的。我猜测这些应该是早期的测试算例，
+%% 毕竟我认为使用 DFJ ESCs 的 11 节点 TSP 如果不依赖求解器 Callback 
+%% 实现动态分离约束求解是比较困难的。
+
 % {\small
 % \begin{verbatim}
 % #City        x y
@@ -2150,11 +2164,14 @@ Jena       5093 1158
 % \end{verbatim}
 % }
 
-\noindent The formulation in \zimpl follows below. Please note that \code{P[]}
-holds all subsets of the cities. As a result
-19 cities is about as far as one can get with this approach.
-Information on how to solve much larger instances can be found on the
-\textsc{concorde} website\footnote{http://www.tsp.gatech.edu}.
+\noindent 以下为 \zimpl 中的模型表述。请注意，\code{P[]} 存储了城市集合的所有子集。
+因此，此方法最多仅能处理约 19 个城市规模的问题。有关如何求解更大规模实例的信息，
+请访问 \textsc{concorde} 网站\footnote{http://www.tsp.gatech.edu}。
+% \noindent The formulation in \zimpl follows below. Please note that \code{P[]}
+% holds all subsets of the cities. As a result
+% 19 cities is about as far as one can get with this approach.
+% Information on how to solve much larger instances can be found on the
+% \textsc{concorde} website\footnote{http://www.tsp.gatech.edu}.
 
 \medskip
 \lstset{language=zimpl,%
@@ -2186,16 +2203,29 @@ subto no_subtour:
 \end{lstlisting}
 
 \medskip
-\noindent The resulting \lp has 171 variables, 239,925 constraints, and
-22,387,149 non-zero entries in the constraint matrix, giving an \mps-file
-size of 936\,\textsc{mb}. \cplex solves this to optimality
-without branching in less than a minute.\footnote{Only 40
-simplex iterations are needed to reach the optimal solution.}
+\noindent 输出的 \lp 模型包含 171 个变量，239,925 个约束，
+且约束矩阵中具有 22,387,149 个非零元素，
+生成的 \mps 文件大小为 936\,\textsc{mb}。
+\cplex 在不到一分钟的时间内无需分支即求解至最优解\footnote{
+  仅需 40 次单纯形迭代即可达到最优解。
+  \textbf{译者注}：这个算例的求解似乎并不像本书中说的这么容易，
+  笔者在自己的电脑 (ASUS Redolbook 14, AMD Ryzen™ 7 4700U, 16GB DDR4)
+  上运行 SCIP 求解该算例时遭遇了死机和系统崩溃的情况。特此警告！
+}。
+% \noindent The resulting \lp has 171 variables, 239,925 constraints, and
+% 22,387,149 non-zero entries in the constraint matrix, giving an \mps-file
+% size of 936\,\textsc{mb}. \cplex solves this to optimality
+% without branching in less than a minute.\footnote{Only 40
+% simplex iterations are needed to reach the optimal solution.}
 
-An optimal tour for the data above is
+针对上述数据给出的一个最优化的环游方案是
 Berlin, Hamburg, Hannover, Dortmund, Bo\-chum, Wuppertal, Essen,
 Duisburg, Trier, Koblenz, Frankfurt, Heidelberg, Karlsruhe, Stuttgart,
-Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin.
+Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin。
+% An optimal tour for the data above is
+% Berlin, Hamburg, Hannover, Dortmund, Bo\-chum, Wuppertal, Essen,
+% Duisburg, Trier, Koblenz, Frankfurt, Heidelberg, Karlsruhe, Stuttgart,
+% Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin.
 
 
 \subsection{The capacitated facility location problem}
