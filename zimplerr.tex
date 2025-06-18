@@ -165,7 +165,7 @@
   使用了没有在作用域内定义的名称。
   % A name was used that is not defined anywhere in scope.
 \item[134 Illegal element \code{xxx} for symbol]\ \\
-  初始化中给出的索引元组不是参数的索引集的成员。
+  初始化过程中给出的索引元组不是参数的索引集的成员。
   % The index tuple given in the initialization is not member of the
   % index set of the parameter.
 \item[135 Index set for parameter \code{xxx} is empty]\ \\
@@ -339,7 +339,7 @@
   % its definition.
 \item[172 Wrong number of entries (\code{xxx}) in table line, 
   expected \code{yyy} entries]\ \\
-  初始化参数表时，每一行输入的元素的个数 (entries)
+  在参数的初始化表中，每一行输入的条目 (entries) 的个数
   必须与表的索引行 (第一行) 相同。
   % Each line of a parameter initialization table must have
   % exactly the same number of entries as the index (first) line of
@@ -413,67 +413,93 @@
 % inst.c
 %
 \item[186 Minimizing over empty set -- zero assumed] (warning)\ \\
-   The index expression for the minimization was empty. The result
-   used for this expression was zero.
+  取极小值时的索引表达式为空，因为该表达式的值为零。\footnote{
+    \textbf{译者注}：我确实不知道这句话是什么意思，所以此处是照着字面翻译的。}
+  % The index expression for the minimization was empty. The result
+  % used for this expression was zero.
 \item[187 Maximizing over empty set -- zero assumed] (warning)\ \\
-   The index expression for the maximization was empty. The result
-   used for this expression was zero.
+  取极大值时的索引表达式为空，因为该表达式的值为零。
+  % The index expression for the maximization was empty. The result
+  % used for this expression was zero.
 \item[188 Index tuple has wrong dimension]\ \\
-   The number of elements in an index tuple is different from the
-   dimension of the tuples in the set that is indexed.
-   This might occur, when the index tuple of an entry in a parameter initialization list has
-   not the same dimension as the indexing set of the parameter. 
-   This might occur, when the index tuple of an entry in a set
-   initialization list has
-   not the same dimension as the indexing set of the set. 
-   If you use a \code{powerset} or \code{subset} instruction, the index
-   set has to be one dimension.
+  索引元组中的元素数量与被索引集合的元组索引的维度不一致。导致此错误的原因，
+  既可能是因为在参数初始化列表中，条目的索引元组的维度与该参数的索引集合维度不同；
+  也可能是因为在集合初始化列表中，条目的索引元组维度与该集合的索引集的维度不同。
+  如果您使用 \code{powerset} 或 \code{subset} 指令，则索引集必须是一维的。
+  % The number of elements in an index tuple is different from the
+  % dimension of the tuples in the set that is indexed.
+  % This might occur, when the index tuple of an entry in a parameter initialization list has
+  % not the same dimension as the indexing set of the parameter. 
+  % This might occur, when the index tuple of an entry in a set
+  % initialization list has
+  % not the same dimension as the indexing set of the set. 
+  % If you use a \code{powerset} or \code{subset} instruction, the index
+  % set has to be one dimension.
 \item[189 Tuple number \code{xxx} is too big or not an integer]\ \\
-  The tuple number must be given as an integer smaller than two
-  billion.
+  给定的元组的编号必须是小于二十亿的整数。
+  % The tuple number must be given as an integer smaller than two
+  % billion.
 \item[190 Component number \code{xxx} is too big or not an integer]\ \\
-  The component number must be given as an integer smaller than two
-  billion.
+  给定的分量的编号必须是小于二十亿的整数。
+  % The component number must be given as an integer smaller than two
+  % billion.
 \item[191 Tuple number \code{xxx} is not a valid value between 1..\code{yyy}]\ \\
-  The tuple number must be between one and the cardinality of the set.
+  元组的编号必须在 1 和集合的基数之间。
+  % The tuple number must be between one and the cardinality of the set.
 \item[192 Component number \code{xxx} is not a valid value between 1..\code{yyy}]\ \\
-  The component number must be between one and the dimension of the set.
+  分量的编号必须在 1 和集合的维数之间。
+  % The component number must be between one and the dimension of the set.
 \item[193 Different dimension tuples in set initialization]\ \\
-  The tuples that should be part of the list have different dimension.
+  同一列表中的元组的维度不同。
+  % The tuples that should be part of the list have different dimension.
 \item[195 Genuine empty set as index set] (warning)\ \\
-  The set of an index set is always the empty set.
+  某一索引集索引的被索引集合恒为空集。
+  % The set of an index set is always the empty set.
 \item[197 Empty index set for set]\ \\
-  The index set for a set is empty.
+  某一集合的索引集为空集。
+  % The index set for a set is empty.
 \item[198 Incompatible index tuple]\ \\
-  The index tuple given had fixed components. The type of such a
-  component was not the same as the type of the same component of tuples
-  from the set.
+  给定的索引元组具有固定的分量，
+  该分量的数据类型与集合中的元组的同一分量的数据类型不一致。
+  % The index tuple given had fixed components. The type of such a
+  % component was not the same as the type of the same component of tuples
+  % from the set.
 \item[199 Constants are not allowed in SOS declarations]\ \\
-  When declaring an SOS, weights are only allowed together with
-  variables. A weight alone does not make sense.
+  在声明 SOS 时，权重只能与变量一同使用。单独使用的权重没有意义。
+  % When declaring an SOS, weights are only allowed together with
+  % variables. A weight alone does not make sense.
 \item[200 Weights are not unique for SOS \code{xxx} (warning)]\ \\
-  All weights assigned to variables in an special ordered set have to
-  be unique. 
+  特殊有序集中分配给变量的所有权重都必须是唯一的。
+  % All weights assigned to variables in an special ordered set have to
+  % be unique. 
 \item[201 Invalid read template, only one field allowed]\ \\
-  When reading a single parameter value, the read template must
-  consist of a single field specification.
+  读取一个单一的参数值时，read 模板必须只包含一个单一的字段规则。
+  % When reading a single parameter value, the read template must
+  % consist of a single field specification.
 \item[202 Indexing over empty set] (warning)\ \\
-  The indexing set turns out to be empty.
+  索引集是空的。
+  % The indexing set turns out to be empty.
 \item[203 Indexing tuple is fixed] (warning)\ \\
-  The indexing tuple of an index expression is completely fixed. As a
-  result only this one element will be searched for.
+  某个索引表达式产生的索引集是一个固定的集合。
+  其结果是只有这一个 (对应的) 元素会被搜索到。
+  % The indexing tuple of an index expression is completely fixed. As a
+  % result only this one element will be searched for.
 \item[204 Random function parameter minimum= \code{xxx} $>=$ maximum=
   \code{yyy}]\ \\
-  The second parameter to the function \code{random} has to be
-  strictly greater than the first parameter.
+  \code{random} 函数的第二个参数必须严格大于第一个参数。
+  % The second parameter to the function \code{random} has to be
+  % strictly greater than the first parameter.
 \item[205 \code{xxx} excess entries for symbol \code{yyy} ignored ]
   (warning)\ \\
-  When reading the data for symbol \code{yyy} there were 
-  \code{xxx} more entries in the file than indices for the symbol.
-  The excess entries were ignored.  
+  读取符号 \code{yyy} 中的数据时，文件中存在的条目数比符号的索引数多 
+  \code{xxx} 个。多余的条目会被忽略。
+  % When reading the data for symbol \code{yyy} there were 
+  % \code{xxx} more entries in the file than indices for the symbol.
+  % The excess entries were ignored.  
 \item[206 argmin/argmax over empty set] (warning)\ \\
-   The index expression for the \code{argmin} or \code{argmax} was
-   empty. The result is the empty set.
+  \code{argmin} 或 \code{argmax} 的索引表达式为空。返回的结果为空集。
+  % The index expression for the \code{argmin} or \code{argmax} was
+  % empty. The result is the empty set.
 \item[207 ``size'' value \code{xxx} is too big or not an integer]\ \\
    The size argument for an \code{argmin} or \code{argmax} function
    must be an integer with an absolute value of less than two billion.
