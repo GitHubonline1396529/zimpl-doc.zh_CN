@@ -501,35 +501,49 @@
   % The index expression for the \code{argmin} or \code{argmax} was
   % empty. The result is the empty set.
 \item[207 ``size'' value \code{xxx} is too big or not an integer]\ \\
-   The size argument for an \code{argmin} or \code{argmax} function
-   must be an integer with an absolute value of less than two billion.
+  \code{argmin} 和 \code{argmax} 函数的“size”参数必须是一个
+  绝对值小于二十亿的整数。
+  % The size argument for an \code{argmin} or \code{argmax} function
+  % must be an integer with an absolute value of less than two billion.
 \item[208 ``size'' value \code{xxx} not >= 1]\ \\
-   The size argument for an \code{argmin} or \code{argmax} function
-   must be at least one, since it represents the maximum cardinality
-   of the resulting set.
+  \code{argmin} 和 \code{argmax} 函数的“size”参数最小为 1，
+  因为它表示结果集合的最大基数。
+  % The size argument for an \code{argmin} or \code{argmax} function
+  % must be at least one, since it represents the maximum cardinality
+  % of the resulting set.
 \item[209 MIN of set with more than one dimension]\ \\
-   The expressions \code{min(A)} is only allowed if the elements of 
-   set A consist of 1-tuples containing numbers.  
+  表达式 \code{min(A)} 中集合 A 的元素只能由包含数字的一维元组组成。
+  % The expressions \code{min(A)} is only allowed if the elements of 
+  % set A consist of 1-tuples containing numbers.  
 \item[210 MAX of set with more than one dimension]\ \\
-   The expressions \code{max(A)} is only allowed if the elements of 
-   set A consist of 1-tuples containing numbers.  
+  表达式 \code{max(A)} 中集合 A 的元素只能由包含数字的一维元组组成。
+  % The expressions \code{max(A)} is only allowed if the elements of 
+  % set A consist of 1-tuples containing numbers.  
 \item[211 MIN of set containing non number elements]\ \\
-   The expressions \code{min(A)} is only allowed if the elements of 
-   set A consist of 1-tuples containing numbers.  
+  表达式 \code{min(A)} 中集合 A 的元素只能由包含数字的一维元组组成。
+  % The expressions \code{min(A)} is only allowed if the elements of 
+  % set A consist of 1-tuples containing numbers.  
 \item[212 MAX of set containing non number elements]\ \\
-   The expressions \code{max(A)} is only allowed if the elements of 
-   set A consist of 1-tuples containing numbers.  
+  表达式 \code{max(A)} 中集合 A 的元素只能由包含数字的一维元组组成。  
+  % The expressions \code{max(A)} is only allowed if the elements of 
+  % set A consist of 1-tuples containing numbers.  
 \item[213 More than 65535 input fields in line \code{xxx} of
    \code{yyy} (warning)]\ \\
-   Input data beyond field number 65535 in line \code{xxx} of file
-   \code{yyy} are ignored. Insert some newlines into your data!
+  文件 \code{yyy} 中的第 \code{xxx} 行的输入字段超过 65535 个。
+  在数据中插入一些新行！\footnote{\textbf{译者注}：意指换行。}
+  % Input data beyond field number 65535 in line \code{xxx} of file
+  % \code{yyy} are ignored. Insert some newlines into your data!
 \item[214 Wrong type of set elements -- wrong read template?]\ \\
-   Most likely you have tried read in a set from a stream using
-   \code{"n+"} instead of \code{"<n+>"} in the template. 
+  很可能您在模板中尝试使用 \code{"n+"} 而不是 \code{"<n+>"} 
+  从流 (stream) 中读取集合。
+  % Most likely you have tried read in a set from a stream using
+  % \code{"n+"} instead of \code{"<n+>"} in the template. 
 \item[215 Startvals violate constraint, \ldots (warning)]\ \\
-   If the given startvals are summed up, they violate the
-   constraint. Details about the sum of the LHS and the RHS are given
-   in the message.
+  如果给定的 startvals 相加，它们就会违背约束。
+  报错信息中给出了 LHS 和 RHS 的相关错误详情。
+  % If the given startvals are summed up, they violate the
+  % constraint. Details about the sum of the LHS and the RHS are given
+  % in the message.
 \item[216 Redefinition of parameter \code{xxx} ignored]\ \\
    A parameter was declared a second time with the same name. The
    typical use would be to declare default values for a parameter in
