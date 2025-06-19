@@ -1976,8 +1976,9 @@ subto c3: forall <i> in I with i < max(I) :
 %------------------------------------------------------------------------------
 可以在包含变量的项式上使用特殊的函数，这些函数将自动地被转换为一组不等式。
 这些函数的参数必须是仅由有上下界的整型变量或二元变量构成的线性项式。
-目前仅实现了计算项 \code{t} 的绝对值的函数 \code{vabs(t)}，但其他函数
-(如两项的最小值、最大值或一个项的符号函数) 可以类似的方式实现。
+目前仅实现了计算项式 \code{t} 的绝对值的函数 \code{vabs(t)}\footnote{
+   \textbf{译者注}：具体来说，该函数可以计算含变量的项式的绝对值。
+}，但其他函数 (如两项的最小值、最大值或一个项的符号函数) 可以类似的方式实现。
 同样，使用此构造将导致生成若干个额外的约束和变量。
 % It is possible to use special functions on terms with variables that
 % will automatically be converted into a system of inequalities. The
