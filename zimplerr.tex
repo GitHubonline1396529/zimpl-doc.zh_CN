@@ -143,11 +143,13 @@
   % dimension of the tuples in the set.
 % Removed in 2.02
 %\item[130 Duplicate index \code{xxx} for initialization]\ \\
-%  In the initialization of a indexed set, two initialization elements
-%  have the same index. 
-%  E.g, \code{set A[] := $<$1$>$ \{ 1 \}, $<$1$>$ \{ 2 \};}
+%  在某一被索引集合的初始化过程当中，两个初始化元素具有相同的值。
+%  例如，\code{set A[] := $<$1$>$ \{ 1 \}, $<$1$>$ \{ 2 \};}
+%  % In the initialization of a indexed set, two initialization elements
+%  % have the same index. 
+%  % E.g, \code{set A[] := $<$1$>$ \{ 1 \}, $<$1$>$ \{ 2 \};}
 \item[131 Illegal element \code{xxx} for symbol]\footnote{\textbf{译者注}：
-    报错130在版本2.02中被移除。
+    报错130在版本2.02中被移除，此处直接接继报错131。
   }\ \\
   索引集初始化列表中使用的索引元组不是集合的索引集的成员。例如：
   \code{set A[\{ 1 to 5 \}] := $<$1$>$ \{ 1 \}, $<$6$>$ \{ 2 \};}。
@@ -545,57 +547,83 @@
   % constraint. Details about the sum of the LHS and the RHS are given
   % in the message.
 \item[216 Redefinition of parameter \code{xxx} ignored]\ \\
-   A parameter was declared a second time with the same name. The
-   typical use would be to declare default values for a parameter in
-   the \zimpl file and override them by command-line defined.
+  同名的参数被声明了两次。典型的用法是在 \zimpl 
+  文件里面声明参数的默认值，再通过命令行定义的方式覆盖它们。
+  % A parameter was declared a second time with the same name. The
+  % typical use would be to declare default values for a parameter in
+  % the \zimpl file and override them by command-line defined.
 \item[217 begin value \code{xxx} in substr too big or not an integer]\ \\
-   The begin argument for an \code{substr} function
-   must be an integer with an absolute value of less than two billion.
+  \code{substr} 函数的 begin 参数必须是一个绝对值小于二十亿的整数。
+  % The begin argument for an \code{substr} function
+  % must be an integer with an absolute value of less than two billion.
 \item[218 length value \code{xxx} in substr too big or not an integer]\ \\
-   The length argument for an \code{substr} function
-   must be an integer with an absolute value of less than two billion.
+  \code{substr} 函数的 length 参数必须是一个绝对值小于二十亿的整数。
+  % The length argument for an \code{substr} function
+  % must be an integer with an absolute value of less than two billion.
 \item[219 length value \code{xxx} in substr is negative]\ \\
-   The length argument for an \code{substr} function
-   must be greater or equal to zero.
+  \code{substr} 函数的 length 参数必须大于或等于 0。
+  % The length argument for an \code{substr} function
+  % must be greater or equal to zero.
 \item[220 Illegal size for subsets \code{xxx}, should be between \code{yyy} 
   and \code{zzz}]\ \\
-  The cardinality of the subsets to generate must be between the
-  given lower bound and the cardinality of the base set.
-%\item[221 The objective function has to be linear or quadratic]\ \\
-%   Only objective functions with linear or quadratic constraints are allowed.
+  要生成子集的基数必须在指定的下界和基集合的基数之间。
+  % The cardinality of the subsets to generate must be between the
+  % given lower bound and the cardinality of the base set.
+% \item[221 The objective function has to be linear or quadratic]\ \\
+%   只允许使用线性或二次型的约束。
+%   % Only objective functions with linear or quadratic constraints are allowed.
+%
 % vinst.c
-\item[222 Term inside a then or else constraint not linear]\ \\
+%
+\item[222 Term inside a then or else constraint not linear]\footnote{
+    \textbf{译者注}：文档源码中的报错221被原作者注释掉了。
+  }\ \\
+  \code{then} 或 \code{else} 中的项式不是线性的形式。
   The term inside a \code{then} or \code{else} is not linear.
+%
 % inst.c
+%
 \item[223 Objective function \code{xxx} overwrites existing one
   (warning)]\ \\
-  Another objective function declaration has been encountered,
-  superceeding the previous one. 
+  遇到了另一个目标函数形式的声明，覆盖了前一个。
+  % Another objective function declaration has been encountered,
+  % superceeding the previous one. 
+%
 % xlpglue.c
+%
 \item[301 variable priority has to be integral] (warning)\ \\
-   If branching priorities for variables are given, these have to be integral.
+  如果给定了变量的分支优先级，则这些优先级必须是整数。
+  % If branching priorities for variables are given, these have to be integral.
 \item[302 SOS priority has to be integral] (warning)\ \\
-   If SOS priorities are given, these have to be integral.
-   %
+  如果给定了 SOS 的优先级，则这些优先级必须是整数。
+  % If SOS priorities are given, these have to be integral.
+  % % %% 原作者在这行中放了一个缩进 2 空格的注释百分号，原因不明。
 \item [401 Slack too large (\code{xxx}) for QUBO conversion]
-   The upper bound of the slack needed for this constraint is more then
-   $2^{30}$.   
+  该约束所需的松弛变量的上界超过了 $2^{30}$。
+  % The upper bound of the slack needed for this constraint is more then
+  % $2^{30}$.   
 \item [403 Non linear term can't be converted to QUBO]\ \\
-  Only linear terms can be automatically converted into a QUBO.
+  只有线性项式可以自动转化为 QUBO。
+  % Only linear terms can be automatically converted into a QUBO.
 \item [404 Non linear expressions can't be converted to QUBO]\ \\
-  Only linear expressions without indicator constraints can be
-  automatically converted into a QUBO. 
+  只有不含指示约束的线性表达式可以被自动转化为 QUBO。
+  % Only linear expressions without indicator constraints can be
+  % automatically converted into a QUBO. 
 \item[600 File format can only handle linear and quadratic constraints
          (warning)]\ \\
-  The chosen file format can currently only handle linear and
-  quadratic constraints. Higher degree constraints were ignored.
+  所选的文件格式只能处理线性和二次项约束。更高阶的约束将被忽略。
+  % The chosen file format can currently only handle linear and
+  % quadratic constraints. Higher degree constraints were ignored.
 \item[601 File format can only handle binary variables] (warning)]\ \\
-  The chosen file format can only handle binary variables. 
-  Variables of other types will be ignored.
+  所选择的文件格式只能处理二元变量。其他数据类型的变量将被忽略。
+  % The chosen file format can only handle binary variables. 
+  % Variables of other types will be ignored.
 \item[602 QUBO file format can only handle linear and quadratic term
          (warning)]\ \\
-  By definition the QUBO file format can only handle linear and
-  quadratic terms. No file can be written.
+  根据定义，QUBO 的文件格式只能处理线性和二次的项式。无法写入文件。
+  % By definition the QUBO file format can only handle linear and
+  % quadratic terms. No file can be written.
+%% 下面这个“space here”是原作者写在这里的。
 %
 % space here
 %
@@ -603,13 +631,18 @@
 % numbgmp.c
 %
 \item[700 log(): \code{OS specific domain or range error message}]\ \\
-  Function \code{log} was called with a zero or negative argument, or
-the argument was too small to be represented as a \code{double}.
+  调用 \code{log} 函数时参数为零或者负数，或者由于参数太小，
+  无法表示为 \code{double} 数据类型。
+  % Function \code{log} was called with a zero or negative argument, or
+  % the argument was too small to be represented as a \code{double}.
 \item[701 sqrt(): \code{OS specific domain error message}]\ \\
-  Function \code{sqrt} was called with a negative argument.
+  调用 \code{log} 函数时参数为负数。
+  % Function \code{sqrt} was called with a negative argument.
 \item[702 ln(): \code{OS specific domain or range error message}]\ \\
-  Function \code{ln} was called with a zero or negative argument, or
-  the argument was too small to be represented as a \code{double}.
+  调用 \code{log} 函数时参数为零或者负数，或者由于参数太小，
+  无法表示为 \code{double} 数据类型。
+  % Function \code{ln} was called with a zero or negative argument, or
+  % the argument was too small to be represented as a \code{double}.
 %\item[]\ \\
 %\item[]\ \\
 %\item[]\ \\
@@ -617,22 +650,31 @@ the argument was too small to be represented as a \code{double}.
 %\item[]\ \\
 %\item[]\ \\
 %\item[]\ \\
+%
 % mmlscan.l
+%
 \item[800 parse error: expecting \code{xxx} (or \code{yyy})]\ \\
-  Parsing error. What was found was not what was expected.
-  The statement you entered is not valid.
+  解析错误。找到的内容与预期不符，您输入的语句无效。
+  % Parsing error. What was found was not what was expected.
+  % The statement you entered is not valid.
 \item[801 Parser failed]\ \\
-  The parsing routine failed. This should not happen. If you encounter
-  this error, please email the \code{.zpl} file to \url{mailto:koch@zib.de}.
+  解析例程失败。这种情况不应该发生。如果您遭遇了此错误，
+  请将此 \code{.zpl} 文件发送电子邮件到 \url{mailto:koch@zib.de}。
+  % The parsing routine failed. This should not happen. If you encounter
+  % this error, please email the \code{.zpl} file to \url{mailto:koch@zib.de}.
 \item[802 Regular expression error]\ \\
-  A regular expression given to the \code{match} parameter of a
-  \code{read} statement was not valid. See error messages for details.
+  \code{read} 语句的 \code{match} 参数中给出的一个正则表达式无效。
+  有关错误详情，请参阅错误信息。
+  % A regular expression given to the \code{match} parameter of a
+  % \code{read} statement was not valid. See error messages for details.
 \item[803 String too long \code{xxx} $>$ \code{yyy}]\ \\
-  The program encountered a string which is larger than 1 GB. 
+  程序遭遇了一个大于 1 GB 的字符串。
+  % The program encountered a string which is larger than 1 GB. 
 %
 % inst.c
 %
 \item[900 Check failed!]\ \\
-  A \code{check} instruction did not evaluate to true. 
+  某个 \code{check} 指令的评估结果不为“真”。
+  % A \code{check} instruction did not evaluate to true. 
 \end{description}
 
