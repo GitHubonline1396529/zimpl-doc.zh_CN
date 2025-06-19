@@ -2228,20 +2228,29 @@ Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin。
 % Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin.
 
 
-\subsection{The capacitated facility location problem}
-Here we give a formulation of the \emph{capacitated facility
-location} problem. It may also be considered as a kind of \emph{bin packing} problem
-with packing costs and variable sized bins, or as a \emph{cutting stock} problem
-with cutting costs.
+\subsection{含产能约束限制的设施选址问题}
+% \subsection{The capacitated facility location problem}
+本节我们将给出\emph{含产能约束限制的设施选址}问题的数学模型。
+该问题亦可视为一类具有装箱成本且箱型尺寸可变的\emph{背包问题}，
+或视为考虑切割成本的\emph{切割下料问题}。
+% Here we give a formulation of the \emph{capacitated facility
+% location} problem. It may also be considered as a kind of \emph{bin packing} problem
+% with packing costs and variable sized bins, or as a \emph{cutting stock} problem
+% with cutting costs.
 
-Given a set of possible plants $P$ to build, and a set of stores $S$
-with a certain demand $\delta_s$ that has to be satisfied, we have
-to decide which plant should serve which store.
-We have costs $c_p$ for building plant $p$ and $c_{ps}$
-for transporting the goods from plant $p$ to store $s$.
-Each plant has only a limited capacity $\kappa_p$.
-We insist that each store is served by exactly one plant.
-Of course we are looking for the cheapest solution:
+给定一待建设的备选工厂集合 $P$ 和一门店集合 $S$，
+各门店需求量为 $\delta_s$ 且必须被满足，需确定各工厂服务的门店的分配方案。
+建设工厂 $p$ 的成本为 $c_p$，从工厂 $p$ 运输货物至商店 $s$ 的成本为 $c_{ps}$。
+每个工厂 $p$ 仅有有限产能 $\kappa_p$。我们要求每个商店必须由唯一工厂服务，
+当然最终目标是寻求总成本最低的解决方案：
+% Given a set of possible plants $P$ to build, and a set of stores $S$
+% with a certain demand $\delta_s$ that has to be satisfied, we have
+% to decide which plant should serve which store.
+% We have costs $c_p$ for building plant $p$ and $c_{ps}$
+% for transporting the goods from plant $p$ to store $s$.
+% Each plant has only a limited capacity $\kappa_p$.
+% We insist that each store is served by exactly one plant.
+% Of course we are looking for the cheapest solution:
 %
 \begin{align}
 \min\sum_{p\in P}c_p z_p&
@@ -2252,18 +2261,31 @@ x_{ps}&\leq z_{p}&&\fa s\in S, p\in P\label{eqn:open}\\
 x_{ps},z_p&\in\BB&&\fa p\in P, s\in S\nonumber
 \end{align}
 %
-We use binary variables $z_p$ which are set to one, if and only if plant $p$ is
-to be built. Additionally, we have binary variables $x_{ps}$
-which are set to one if and only if plant $p$ serves shop $s$.
-Equation~\eqref{eqn:assign} demands that each store is assigned to
-exactly one plant. Inequality~\eqref{eqn:open} makes sure that a plant
-that serves a shop is built. Inequality~\eqref{eqn:capacity}
-assures that the shops are served by a plant which does not exceed its
-capacity. Putting this into \zimpl yields the program shown on the
-next page.
-The optimal solution for the instance described by the program is to build plants \code{A} and
-\code{C}. Stores 2, 3, and 4 are served by plant \code{A} and the others by
-plant \code{C}. The total cost is 1457.
+我们设置二元变量 $z_p$，当且仅当工厂 $p$ 被建设时，其取值为 1。
+此外，我们设置二元变量 $x_{ps}$，当且仅当工厂 $p$ 为商店 $s$ 提供服务时，
+其取值为 1。
+式~\eqref{eqn:assign} 表示每个商店只能被分配给一个工厂\footnote{
+  \textbf{译者注}：原文为“assigned to exactly one plant”，
+  言下之意指，反过来，一个工厂可以服务多家门店。
+}。
+不等式~\eqref{eqn:open} 确保为商店提供服务的工厂已被建设。
+不等式~\eqref{eqn:capacity} 保证为商店提供服务的工厂不会超出其产能限制。
+将此模型放进 \zimpl 的代码里，即可得到下一页所示的例程。
+该程序所描述的问题实例的最优解是选择建设工厂 \code{A} 和 \code{C}。
+商店 2、3 和 4 由工厂 \code{A} 服务，其余商店由工厂 \code{C} 服务。
+总成本为 1457。
+% We use binary variables $z_p$ which are set to one, if and only if plant $p$ is
+% to be built. Additionally, we have binary variables $x_{ps}$
+% which are set to one if and only if plant $p$ serves shop $s$.
+% Equation~\eqref{eqn:assign} demands that each store is assigned to
+% exactly one plant. Inequality~\eqref{eqn:open} makes sure that a plant
+% that serves a shop is built. Inequality~\eqref{eqn:capacity}
+% assures that the shops are served by a plant which does not exceed its
+% capacity. Putting this into \zimpl yields the program shown on the
+% next page.
+% The optimal solution for the instance described by the program is to build plants \code{A} and
+% \code{C}. Stores 2, 3, and 4 are served by plant \code{A} and the others by
+% plant \code{C}. The total cost is 1457.
 
 \clearpage
 \lstset{language=zimpl,%
@@ -2274,19 +2296,18 @@ set PLANTS := { "A", "B", "C", "D" };
 set STORES := { 1 .. 9 };
 set PS     := PLANTS * STORES;
 
-# How much does it cost to build a plant and what capacity
-# will it then have?
+# 各个工厂的建设费用和建成后各自的产能是多少？
 param building[PLANTS]:= <"A"> 500, <"B"> 600, <"C"> 700, <"D"> 800;
 param capacity[PLANTS]:= <"A">  40, <"B">  55, <"C">  73, <"D">  90;
 
-# The demand for each store
+# 各个门店的需求量
 param demand  [STORES]:= <1> 10, <2> 14,
                          <3> 17, <4>  8,
                          <5>  9, <6> 12,
                          <7> 11, <8> 15,
                          <9> 16;
 
-# Transportation cost from each plant to each store
+# 各个工厂到各门店的运输成本
 param transport[PS] :=
       |  1,  2,  3,  4,  5,  6,  7,  8,  9 |
   |"A"| 55,  4, 17, 33, 47, 98, 19, 10,  6 |
@@ -2297,26 +2318,79 @@ param transport[PS] :=
 var x[PS]     binary;  # Is plant p supplying store s ?
 var z[PLANTS] binary;  # Is plant p built ?
 
-# We want it cheap
+# 我们需要成本最低
 minimize cost: sum <p> in PLANTS : building[p] * z[p]
              + sum <p,s> in PS : transport[p,s] * x[p,s];
 
-# Each store is supplied by exactly one plant
+# 每一家门店只能由一家工厂供应
 subto assign:
   forall <s> in STORES do
      sum <p> in PLANTS : x[p,s] == 1;
 
-# To be able to supply a store, a plant must be built
+# 服务工厂的门店必须先被建造出来
 subto build:
    forall <p,s> in PS do
       x[p,s] <= z[p];
 
+# 工厂的产能必须能够满足指派该厂供应的所有门店的总需求量
 # The plant must be able to meet the demands from all stores
 # that are assigned to it
 subto limit:
    forall <p> in PLANTS do
       sum <s> in S : demand[s] * x[p,s] <= capacity[p];
 \end{lstlisting}
+
+% \lstset{language=zimpl,%
+% basicstyle=\sffamily\footnotesize,%
+% numberstyle=\sffamily\tiny\color{siennabrown},stepnumber=1}
+% \begin{lstlisting}[frame=]{}
+% set PLANTS := { "A", "B", "C", "D" };
+% set STORES := { 1 .. 9 };
+% set PS     := PLANTS * STORES;
+%
+% # How much does it cost to build a plant and what capacity
+% # will it then have?
+% param building[PLANTS]:= <"A"> 500, <"B"> 600, <"C"> 700, <"D"> 800;
+% param capacity[PLANTS]:= <"A">  40, <"B">  55, <"C">  73, <"D">  90;
+%
+% # The demand for each store
+% param demand  [STORES]:= <1> 10, <2> 14,
+%                          <3> 17, <4>  8,
+%                          <5>  9, <6> 12,
+%                          <7> 11, <8> 15,
+%                          <9> 16;
+%
+% # Transportation cost from each plant to each store
+% param transport[PS] :=
+%       |  1,  2,  3,  4,  5,  6,  7,  8,  9 |
+%   |"A"| 55,  4, 17, 33, 47, 98, 19, 10,  6 |
+%   |"B"| 42, 12,  4, 23, 16, 78, 47,  9, 82 |
+%   |"C"| 17, 34, 65, 25,  7, 67, 45, 13, 54 |
+%   |"D"| 60,  8, 79, 24, 28, 19, 62, 18, 45 |;
+%
+% var x[PS]     binary;  # Is plant p supplying store s ?
+% var z[PLANTS] binary;  # Is plant p built ?
+%
+% # We want it cheap
+% minimize cost: sum <p> in PLANTS : building[p] * z[p]
+%              + sum <p,s> in PS : transport[p,s] * x[p,s];
+%
+% # Each store is supplied by exactly one plant
+% subto assign:
+%   forall <s> in STORES do
+%      sum <p> in PLANTS : x[p,s] == 1;
+%
+% # To be able to supply a store, a plant must be built
+% subto build:
+%    forall <p,s> in PS do
+%       x[p,s] <= z[p];
+%
+% # The plant must be able to meet the demands from all stores
+% # that are assigned to it
+% subto limit:
+%    forall <p> in PLANTS do
+%       sum <s> in S : demand[s] * x[p,s] <= capacity[p];
+% \end{lstlisting}
 \clearpage
 
 \subsection{The \emph{n}-queens problem}
