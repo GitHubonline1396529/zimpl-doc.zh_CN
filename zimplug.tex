@@ -2316,8 +2316,8 @@ param transport[PS] :=
   |"C"| 17, 34, 65, 25,  7, 67, 45, 13, 54 |
   |"D"| 60,  8, 79, 24, 28, 19, 62, 18, 45 |;
 
-var x[PS]     binary;  # 工厂 p 是否供应门店 s？
-var z[PLANTS] binary;  # 工厂 p 是否建成？
+var x[PS]     binary;  # 工厂p是否供应门店s？
+var z[PLANTS] binary;  # 工厂p是否建成？
 
 # 我们需要成本最低
 minimize cost: sum <p> in PLANTS : building[p] * z[p]
