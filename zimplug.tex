@@ -1616,10 +1616,12 @@ var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
 
 \subsection{目标函数}
 % \subsection{Objective}
-在模型的声明中，最多只能声明一个目标函数。目标函数可以是\code{maximize}
-(极大化) 或者\code{minimize} (极小化) 的。紧随关键字声明值后的是一个 
-(目标函数的) 名字，以及一个冒号“\code{:}”随后是一个目标函数形式的一个
-线性表达式。
+在模型的声明中，最多只能声明一个目标函数\footnote{\textbf{译者注}：
+  在 \zimpl 中允许不为模型声明目标函数。在这种情况下，
+  问题将被建模为一个普通的可满足性问题。参阅章节~\ref{nqueens}。}。
+目标函数可以是\code{maximize} (极大化) 或者\code{minimize} (极小化) 的。
+紧随关键字声明值后的是一个 (目标函数的) 名字，
+以及一个冒号“\code{:}”随后是一个目标函数形式的一个线性表达式。
 % There must be at most one objective statement in a model. The objective
 % can be either \code{minimize} or \code{maximize}. Following the
 % keyword is a name, a colon : and then a linear term expressing the
@@ -1628,11 +1630,12 @@ var t[k in K] integer >= 1 <= 3 * k startval 2 * k priority 50;
 如果规划目标中包含补偿值 (offset)，也就是说一个常数值，\zimpl 会自动生成一个
 内部变量\code{@@ObjOffset}并将其赋值为1。该变量将以合适的系数被纳入目标函数中。
 \footnote{
-  这是因为，无论是 \lpf 还是 \mps 格式，都没有通用的方法在目标函数中直接表示
-  一个常数项。
-  \textbf{译者注}: 我不知道原文作者此处所说的“offset”是什么意思，姑且将其翻译
-  为“补偿值”。除此之外，笔者也并未发现\lpf 文件不支持目标函数里包含常数项的语
-  法形式。这可能是为了兼容一些比较旧的求解器机制而作的设计。
+  这是因为，无论是 \lpf 还是 \mps 格式，
+  都没有通用的方法在目标函数中直接表示一个常数项。
+  \textbf{译者注}: 我不知道原文作者此处所说的“offset”是什么意思，
+  姑且将其翻译为“补偿值”。除此之外，
+  笔者也并未发现\lpf 文件不支持目标函数里包含常数项的语法形式。
+  这可能是为了兼容一些比较旧的求解器机制而作的设计。
 }
 % If there is an objective offset, \ie a constant value in the
 % objective function, \zimpl automatically generates an internal
@@ -2394,34 +2397,55 @@ subto limit:
 % \end{lstlisting}
 \clearpage
 
-\subsection{The \emph{n}-queens problem}
+\subsection{\emph{n}皇后问题}
 \label{ssec:example:n-queens-problem}
-The problem is to place $n$ queens on a $n\times n$ chessboard so that no
-two queens are on the same row, column or diagonal.
-The $n$-queens problem is a classic combinatorial search problem
-often used to test the performance of algorithms that solve satisfiability
-problems. Note though, that there are algorithms available which need
-linear time in practice, like, for example, those of \cite{SosicGu1991}.
-We will show four different models for the problem and compare
-their performance.
+% \subsection{The \emph{n}-queens problem}
+% \label{ssec:example:n-queens-problem}
+该问题要求在一个 $n \times n$ 的国际象棋棋盘上放置 $n$ 个皇后，
+使得任意两个皇后均不在同一行、同一列或同一条对角线上。
+\emph{n}皇后问题是一个经典的组合搜索问题，
+常被用于测试求解可满足性问题 (satisfiability problems) 算法的性能。
+但需注意，目前已存在一些在实践中具有线性时间复杂度的算法，
+例如 \cite{SosicGu1991} 提出的算法。
+本节将展示该问题的四种不同模型，并比较它们的求解性能。
+% The problem is to place $n$ queens on a $n\times n$ chessboard so that no
+% two queens are on the same row, column or diagonal.
+% The $n$-queens problem is a classic combinatorial search problem
+% often used to test the performance of algorithms that solve satisfiability
+% problems. Note though, that there are algorithms available which need
+% linear time in practice, like, for example, those of \cite{SosicGu1991}.
+% We will show four different models for the problem and compare
+% their performance.
 
-\subsubsection{The integer model}
+\subsubsection{整数模型}
+% \subsubsection{The integer model}
 \label{nqueens}
-The first formulation uses
-one general integer variable for each row of the board.
-Each variable can assume the value of a column, \ie we have $n$ variables
-with bounds $1\ldots n$. Next, we use the
-\code{vabs} extended function to model an \emph{all different}
-constraint on the variables (see constraint c1).
-This makes sure that no queen is located
-in the same column than any other queen.
-The second constraint (c2) is used to block all the diagonals of a
-queen by demanding that the absolute value of the row
-distance and the column distance of each pair of queens are
-different. We model $a\neq b$ by $\mbox{abs}(a-b)\geq 1$.
+第一种形式是为棋盘的每一行使用一个一般的整型变量。
+每个变量均可被视作是列编号的值。这也就是说，
+我们有 $n$ 个取值范围为 $1$ 到 $n$ 的变量。
+接着，我们使用扩展函数 \code{vabs} 对变量施加\emph{全不同} 约束 
+(all different constraint) (参见约束 c1)。
+这确保了任意两个皇后均不在同一列。
+第二个约束 (c2) 通过要求每对皇后的行距绝对值与列距绝对值不相同，
+从而封锁皇后的所有对角线攻击路径。
+我们通过 $\mbox{abs}(a-b)\geq 1$ 来建模 $a\neq b$。
+% The first formulation uses
+% one general integer variable for each row of the board.
+% Each variable can assume the value of a column, \ie we have $n$ variables
+% with bounds $1\ldots n$. Next, we use the
+% \code{vabs} extended function to model an \emph{all different}
+% constraint on the variables (see constraint c1).
+% This makes sure that no queen is located
+% in the same column than any other queen.
+% The second constraint (c2) is used to block all the diagonals of a
+% queen by demanding that the absolute value of the row
+% distance and the column distance of each pair of queens are
+% different. We model $a\neq b$ by $\mbox{abs}(a-b)\geq 1$.
 
-Note that this formulation only works if a queen can be placed in each
-row, \ie if the size of the board is at least $4\times4$.
+需注意，此建模方案仅在每行均可放置皇后时有效，
+即棋盘尺寸至少为 $4\times4$。
+% Note that this formulation only works if a queen can be placed in each
+% row, \ie if the size of the board is at least $4\times4$.
 
 \medskip
 %\noindent\textsf{Integer formulation}
@@ -2442,21 +2466,28 @@ subto c2: forall <i,j> in P do
 \end{lstlisting}
 
 \medskip
-\noindent The following table shows the performance of the model. Since the
-problem is modeled as a
-pure satisfiability problem, the solution time depends only on how
-long it takes to find a feasible solution.\footnote{Which is, in fact,
-rather random.}
-The columns titled \emph{Vars}, \emph{Cons}, and \emph{NZ} denote the
-number of variables, constraints and non-zero entries in the
-constraint matrix of the generated integer program.
-\emph{Nodes} lists the number of branch-and-bound nodes evaluated by
-the solver, and \emph{time} gives the solution time in \cpu seconds.
+\noindent 下表展示了该模型的求解性能。由于该问题被建模为纯粹的可满足性问题，
+其求解时间仅取决于找到可行解所需的时间\footnote{这个过程，其实，挺随机的。}。
+\emph{Vars}、\emph{Cons} 和 \emph{NZ} 列分别表示所生成整数规划中的变量数量、
+约束数量以及约束矩阵中的非零元数量。
+\emph{Nodes} 列记录了求解器评估的分支定界节点数，
+\emph{time} 列则给出以 \cpu 秒为单位的求解时间。
+% \noindent The following table shows the performance of the model. Since the
+% problem is modeled as a
+% pure satisfiability problem, the solution time depends only on how
+% long it takes to find a feasible solution.\footnote{Which is, in fact,
+% rather random.}
+% The columns titled \emph{Vars}, \emph{Cons}, and \emph{NZ} denote the
+% number of variables, constraints and non-zero entries in the
+% constraint matrix of the generated integer program.
+% \emph{Nodes} lists the number of branch-and-bound nodes evaluated by
+% the solver, and \emph{time} gives the solution time in \cpu seconds.
 \begin{center}
 {\sffamily\small
 \begin{tabular}{crrrrrr}
 \toprule
-Queens & Vars & Cons &   NZ      & Nodes & Time [s]\\
+皇后    &  变量 &  约束 & 非零元 & 节点 & 时间 (秒)\\
+% Queens & Vars & Cons &   NZ      & Nodes & Time [s]\\
 \midrule
    8    &   344 &   392 &    951 &   1,324   & $<$1\\
   12    &   804 &   924 &  2,243 & 122,394   &  120\\
@@ -2465,21 +2496,30 @@ Queens & Vars & Cons &   NZ      & Nodes & Time [s]\\
 \end{tabular}
 }
 \end{center}
-As we can see, between 12 and 16 queens is the maximum instance size
-we can expect to solve with this model. Neither changing the \cplex parameters
-to aggressive cut generation nor setting emphasis on integer
-feasibility improves the performance significantly.
+由此可见，该模型最多可求解的皇后数量在 12 到 16 之间。
+即使将 \cplex 参数调整为激进割平面生成模式，
+或设置为整数可行性优先策略，也无法显著提升求解性能。
+% As we can see, between 12 and 16 queens is the maximum instance size
+% we can expect to solve with this model. Neither changing the \cplex parameters
+% to aggressive cut generation nor setting emphasis on integer
+% feasibility improves the performance significantly.
 
 \subsubsection{The binary models}\label{nqueens:binary}
-Another approach to model the problem is to have
-one binary variable for each square of the
-board. The variable is one if and only if a queen is in this square
-and we maximize the number of queens on the board.
+另一种建模方法是为棋盘的每个方格设置一个二元变量。
+当且仅当某个皇后位于该方格上时，其变量取值为 1，
+我们的目标是最大化棋盘上的皇后总数。
+% Another approach to model the problem is to have
+% one binary variable for each square of the
+% board. The variable is one if and only if a queen is in this square
+% and we maximize the number of queens on the board.
 
-For each square we compute in advance which other squares are blocked if a queen is
-placed on this particular square. Then the extended \code{vif}
-constraint is used to set the variables of the blocked squares to zero if a
-queen is placed.
+对于每个方格，我们预先计算如果在此处放置皇后将会封锁哪些其他格子。
+随后使用扩展约束 \code{vif}：若在特定格子放置皇后，
+则将受威胁格子的对应变量强制设为零。
+% For each square we compute in advance which other squares are blocked if a queen is
+% placed on this particular square. Then the extended \code{vif}
+% constraint is used to set the variables of the blocked squares to zero if a
+% queen is placed.
 
 \medskip
 %\noindent\textsf{Binary formulation A}
@@ -2504,11 +2544,14 @@ subto c1: forall <i,j> in CxC do vif x[i,j] == 1 then @\label{queens-vif}@
 \end{lstlisting}
 
 \medskip
-\noindent Using extended formulations can make the models more comprehensible.
-For example, replacing constraint c1 in line \ref{queens-vif} with
-an equivalent one that does not use \code{vif} as shown below,
-leads to a formulation that is much harder to understand.
-
+\noindent 使用扩展形式可以提升模型的可读性。
+例如，若将第 \ref{queens-vif} 行中的约束 c1 
+替换为如下的不使用 \code{vif} 的等价形式，
+想要理解模型形式就变得困难了许多。
+% \noindent Using extended formulations can make the models more comprehensible.
+% For example, replacing constraint c1 in line \ref{queens-vif} with
+% an equivalent one that does not use \code{vif} as shown below,
+% leads to a formulation that is much harder to understand.
 \medskip
 \lstset{language=zimpl,%
 basicstyle=\sffamily\footnotesize,%
@@ -2520,19 +2563,28 @@ subto c2: forall <i,j> in CxC do
 \end{lstlisting}
 
 \medskip
-\noindent After the application of the \cplex presolve procedure both
-formulations result in identical integer programs. The performance of
-the model is shown in the following table. \emph{S} indicates the
-\cplex settings used: Either \emph{(D)efault},
-\emph{(C)uts}\footnote{Cuts: \code{mip cuts all 2} and \code{mip strategy probing 3}.}, or
-\emph{(F)easibility}\footnote{Feasibility: \code{mip cuts all -1} and \code{mip emph 1}}.
-\emph{Root Node} indicates
-the objective function value of the \lp relaxation of the root node.
+\noindent 经过 \cplex 预处理程序后，两种建模方案最终生成等效的整数规划模型。
+下表展示了该模型的求解性能。
+\emph{设置} 表示所用 \cplex 设置：包括
+\emph{(D)efault} (默认)、\emph{(C)uts}\footnote{
+   割平面策略：\code{mip cuts all 2} 与 \code{mip strategy probing 3}} (割平面)
+或 \emph{(F)easibility}\footnote{
+   可行性优先：\code{mip cuts all -1} 与 \code{mip emph 1}} (可行性)。
+\emph{根节点} 表示根节点的线性规划松弛解目标值。
+% \noindent After the application of the \cplex presolve procedure both
+% formulations result in identical integer programs. The performance of
+% the model is shown in the following table. \emph{S} indicates the
+% \cplex settings used: Either \emph{(D)efault},
+% \emph{(C)uts}\footnote{Cuts: \code{mip cuts all 2} and \code{mip strategy probing 3}.}, or
+% \emph{(F)easibility}\footnote{Feasibility: \code{mip cuts all -1} and \code{mip emph 1}}.
+% \emph{Root Node} indicates
+% the objective function value of the \lp relaxation of the root node.
 \begin{center}
 {\sffamily\small
 \begin{tabular}{ccrrrrrrr}
 \toprule
-Queens & S & Vars & Cons &   NZ   & Root Node & Nodes & Time [s]\\
+皇后 & 设置 & 变量 & 约束 &   非零元   & 根节点 & 节点 & 时间 (秒)\\
+% Queens & S & Vars & Cons &   NZ   & Root Node & Nodes & Time [s]\\
 \midrule
    8   & D &   384 &   448 &   2,352 & 13.4301 &     241 & $<$1\\
        & C &       &       &         &  8.0000 &       0 & $<$1\\
