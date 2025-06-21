@@ -2337,8 +2337,6 @@ subto build:
       x[p,s] <= z[p];
 
 # 工厂的产能必须能够满足指派该厂供应的所有门店的总需求量
-# The plant must be able to meet the demands from all stores
-# that are assigned to it
 subto limit:
    forall <p> in PLANTS do
       sum <s> in S : demand[s] * x[p,s] <= capacity[p];
