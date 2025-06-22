@@ -2235,8 +2235,8 @@ Augsburg, Passau, Bayreuth, Jena, Leipzig, Berlin。
 \subsection{含产能约束限制的设施选址问题}
 % \subsection{The capacitated facility location problem}
 本节我们将给出\emph{含产能约束限制的设施选址}问题的数学模型。
-该问题亦可视为一类具有装箱成本且箱型尺寸可变的\emph{背包问题}，
-或视为考虑切割成本的\emph{切割下料问题}。
+该问题亦可视为一类具有装箱成本且箱型尺寸可变的\emph{装载} (bin packing) 问题，
+或视为考虑切割成本的\emph{切割下料}问题 (cutting stock problem)。
 % Here we give a formulation of the \emph{capacitated facility
 % location} problem. It may also be considered as a kind of \emph{bin packing} problem
 % with packing costs and variable sized bins, or as a \emph{cutting stock} problem
@@ -2502,7 +2502,8 @@ subto c2: forall <i,j> in P do
 % to aggressive cut generation nor setting emphasis on integer
 % feasibility improves the performance significantly.
 
-\subsubsection{The binary models}\label{nqueens:binary}
+\subsubsection{二元模型}\label{nqueens:binary}
+% \subsubsection{The binary models}\label{nqueens:binary}
 另一种建模方法是为棋盘的每个方格设置一个二元变量。
 当且仅当某个皇后位于该方格上时，其变量取值为 1，
 我们的目标是最大化棋盘上的皇后总数。
@@ -2581,7 +2582,7 @@ subto c2: forall <i,j> in CxC do
 {\sffamily\small
 \begin{tabular}{ccrrrrrrr}
 \toprule
-皇后 & 设置 & 变量 & 约束 &   非零元   & 根节点 & 节点 & 时间 (秒)\\
+皇后 & 设置 & 变量 &  约束 &  非零元 &  根节点 &    节点 & 时间 (秒)\\
 % Queens & S & Vars & Cons &   NZ   & Root Node & Nodes & Time [s]\\
 \midrule
    8   & D &   384 &   448 &   2,352 & 13.4301 &     241 & $<$1\\
@@ -2596,14 +2597,20 @@ subto c2: forall <i,j> in CxC do
 \end{tabular}
 }
 \end{center}
-This approach solves instances with more than 24 queens.
-The use of aggressive cut generation improves the upper
-bound on the objective function significantly, though
-it can be observed that for values of
-$n$ larger than 24 \cplex is not able to deduce the trivial upper
-bound of $n$.\footnote{For the 32 queens instance the optimal solution is found
-after 800 nodes, but the upper bound is still 56.1678.}
-If we use the following formulation instead of constraint c2, this changes:
+此方法可求解超过 24 个皇后规模的问题实例。
+采用激进割平面生成策略还能提升目标函数上界，然而可以观察到当 $n$ 值大于 24 时，
+可以观察到当 $n > 24$ 时，\cplex 无法推导出当前规模下的平凡上界值 (trivial
+upper bound) $n$。\footnote{
+  对于 32 个皇后的这一实例而言，求解器在 800 个节点后即找到最优解，
+  但上界值仍高达 56.1678}。若采用以下约束形式替代约束 c2，情况将发生变化：
+% This approach solves instances with more than 24 queens.
+% The use of aggressive cut generation improves the upper
+% bound on the objective function significantly, though
+% it can be observed that for values of
+% $n$ larger than 24 \cplex is not able to deduce the trivial upper
+% bound of $n$.\footnote{For the 32 queens instance the optimal solution is found
+% after 800 nodes, but the upper bound is still 56.1678.}
+% If we use the following formulation instead of constraint c2, this changes:
 
 \medskip
 %\noindent\textsf{Binary formulation B}
@@ -2616,26 +2623,37 @@ subto c3: forall <i,j> in CxC do
 \end{lstlisting}
 
 \medskip
-\noindent As shown in the table below, the optimal upper bound on the objective
-function is always found in the root node. This leads to a similar
-situation as in the integer formulation, \ie the solution time depends
-mainly on the time it needs to find the optimal solution. While
-reducing the number of branch-and-bound nodes evaluated,
-aggressive cut generation increases the total solution time.
+\noindent 如下表所示，目标函数的最优上界总是在根节点处求得。
+这导致出现与整数模型类似的情况，即求解时间主要取决于找到最优解所需的时间。
+虽然激进割平面生成策略减少了分支定界节点数，
+但反而增加了总体求解时间。
+% \noindent As shown in the table below, the optimal upper bound on the objective
+% function is always found in the root node. This leads to a similar
+% situation as in the integer formulation, \ie the solution time depends
+% mainly on the time it needs to find the optimal solution. While
+% reducing the number of branch-and-bound nodes evaluated,
+% aggressive cut generation increases the total solution time.
 
-With this approach instances, up to 96 queens can be solved.
-At this point, the integer program gets too large to be generated.
-Even though the \cplex presolve routine is able to aggregate the
-constraints  again, \zimpl needs too much memory to generate the \ip.
-The column labeled \emph{Pres. NZ} lists the number of non-zero entries
-after the presolve procedure.
+\noindent 采用此方法可求解多达 96 个皇后规模的问题实例。
+超过此规模后，整数规划模型将因规模过大而无法生成。
+尽管 \cplex 预处理程序能够再次聚合约束条件，
+但 \zimpl 需要过多内存来生成整数规划模型。
+标有 \emph{Pres. NZ} 的列记录了预处理后的非零元数量。
+% With this approach instances, up to 96 queens can be solved.
+% At this point, the integer program gets too large to be generated.
+% Even though the \cplex presolve routine is able to aggregate the
+% constraints  again, \zimpl needs too much memory to generate the \ip.
+% The column labeled \emph{Pres. NZ} lists the number of non-zero entries
+% after the presolve procedure.
 
 \begin{center}
 {\sffamily\small
 \begin{tabular}{ccrrrrrrrr}
 \toprule
-       &   &      &      &        & Pres. & Root &       & Time    \\
-Queens & S & Vars & Cons &   NZ   &  NZ   & Node & Nodes & [s]\\
+       &   &      &      &        & 预处理后的 & 根节点处的 &       & 时间 \\
+皇后 & 设置 & 变量 &      约束 & 非零元 & 非零元 & 节点数 & 节点数 & (秒) \\
+%        &   &      &      &        & Pres. & Root &       & Time    \\
+% Queens & S & Vars & Cons &   NZ   &  NZ   & Node & Nodes & [s]\\
 \midrule
 %   8   & D &    64 &     1,456 &     2,912 &    528 &  8.0 &       0 & $<$1\\
   16   & D &   256 &    12,640 &    25,280 &  1,594 & 16.0 &       0 & $<$1\\
@@ -2650,7 +2668,8 @@ Queens & S & Vars & Cons &   NZ   &  NZ   & Node & Nodes & [s]\\
 }
 \end{center}
 
-Finally, we will try the following set packing formulation:
+最后，我们将尝试以下\emph{集合包装} (set packing) 模型：
+% Finally, we will try the following set packing formulation:
 
 \medskip
 %\noindent\textsf{Set packing formulation}
@@ -2678,16 +2697,21 @@ subto diag_col_up: forall <j> in C do
 \end{lstlisting}
 
 \medskip
-\noindent Here again, the upper bound on the objective function is always
-optimal. The size of the generated \ip is even smaller than that of
-the former model after presolve. The results for different instances
-size are shown in the following table:
+\noindent 在此模型中，目标函数上界同样总是最优的。
+所生成的整数规划模型规模甚至小于前一模型预处理后的规模。
+不同规模实例的求解结果如下表所示：
+% \noindent Here again, the upper bound on the objective function is always
+% optimal. The size of the generated \ip is even smaller than that of
+% the former model after presolve. The results for different instances
+% size are shown in the following table:
 \begin{center}
 {\sffamily\small
 \begin{tabular}{ccrrrrrrr}
 \toprule
-Queens & S & Vars & Cons    &   NZ      & Root Node & Nodes & Time [s]\\
+皇后 & 设置 & 变量 & 约束 & 非零元 & 根节点 & 节点 & 时间 (秒) \\
+% Queens & S & Vars & Cons    &   NZ      & Root Node & Nodes & Time [s]\\
 \midrule
+%% 此处 8~32 皇后的情形被作者本人注释掉了。
 %   8   & D &     64 &      48 &       272 &   8.0 &     0 & $<$1\\
 %  16   & D &    256 &      96 &      1056 &  16.0 &     8 & $<$1\\
 %  32   & D &  1,024 &     192 &      4160 &  32.0 &     0 & $<$1\\
@@ -2701,10 +2725,13 @@ Queens & S & Vars & Cons    &   NZ      & Root Node & Nodes & Time [s]\\
 \end{tabular}
 }
 \end{center}
-In case of the 128 queens instance with default settings, a solution with 127 queens is found
-after 90 branch-and-bound nodes, but \cplex was not able to find the
-optimal solution within an hour. From the performance of the Feasible
-setting, it can be presumed that generating cuts is not beneficial for
-this model.
+在采用默认设置的 128 皇后问题实例中，求解器在 90 个分支定界节点后找到了包含 
+127 个皇后的解，但 \cplex 未能在一小时内找到最优解。
+根据可行性优先配置的性能表现，可以推断生成割平面对此模型并无助益。
+% In case of the 128 queens instance with default settings, a solution with 127 queens is found
+% after 90 branch-and-bound nodes, but \cplex was not able to find the
+% optimal solution within an hour. From the performance of the Feasible
+% setting, it can be presumed that generating cuts is not beneficial for
+% this model.
 
 
