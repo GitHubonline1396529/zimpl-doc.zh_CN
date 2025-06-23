@@ -52,4 +52,4 @@ To contribute:
 
 ## Acknowledgments
 
-Special thanks to my friend White Bamboo Rat (白色竹鼠), who provided a high-quality AI-translated reference version for Chapter 7, dramatically accelerating the translation process. Though he hasn't yet shared his GitHub profile for formal acknowledgment, his contribution remains invaluable.
+Special thanks to my friend [White Bamboo Rat (白色竹鼠)](https://github.com/MrDie2233), who provided a high-quality AI-translated reference version for Section 7, dramatically accelerating the translation process.
