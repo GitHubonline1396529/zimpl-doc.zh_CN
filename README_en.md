@@ -4,7 +4,7 @@
 
 ## Project Introduction
 
-Zimpl is a little language in order to translate the mathematical model of a problem into a linear or (mixed-)integer mathematical program, expressed in \lpf or \mps file format which can be read and (hopefully) solved by a \lp or \mip solver. This project aims to translate the *Zimpl User Manual* into Chinese.
+Zimpl is a little language in order to translate the mathematical model of a problem into a linear or (mixed-)integer mathematical program, expressed in lpf or mps file format which can be read and (hopefully) solved by a lp or mip solver. This project aims to translate the *Zimpl User Manual* into Chinese.
 
 The motivation for this translation stems from two factors: First, Zimpl is exceptionally user-friendly and could benefit many Chinese users, especially university students. Second, I discovered that the English documentation—released under the GNU license—is [being sold for profit on CSDN](https://wenku.csdn.net/doc/2st7t0m7ou), which I find deeply concerning. Hence, I decided to provide a Chinese version for the community.
 
