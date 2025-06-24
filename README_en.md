@@ -50,6 +50,14 @@ To contribute:
 2. Submit improvements via [Pull Requests](https://gitee.com/BOXonline_1396529/zimpl-doc.zh_CN/pulls)
 3. Contact directly by email for significant suggestions
 
+## Wall of Shame
+
+I initially hesitated to include this section, but the situation is simply too egregious to ignore. While I understand CSDN's current ecosystem—where platform commissions force users to upload low-quality content for traffic, as earnings from genuine contributions can't cover resource download costs ("C Beans")—this listing isn't personal. Ultimately, this represents our collective shame as an open-source community.
+
+- [“Zimpl语言指南：从模型到线性规划”](https://wenku.csdn.net/doc/2st7t0m7ou), **Open-source documentation sold commercially**, *(Zimpl manual is released under GNU Free Documentation License v3.0)*
+
+- [“从零开始构建Zimpl应用：遵循最佳实践指南”](https://wenku.csdn.net/column/473zyzcb1w), **AI-generated garbage content** riddled with incoherent, nonsensical text, boosted by CSDN's SEO to dominate search results, persistently polluting my AI-assisted web searches.
+
 ## Acknowledgments
 
 Special thanks to my friend [White Bamboo Rat (白色竹鼠)](https://github.com/MrDie2233), who provided a high-quality AI-translated reference version for Section 7, dramatically accelerating the translation process.

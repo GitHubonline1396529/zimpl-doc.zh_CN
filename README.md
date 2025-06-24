@@ -36,6 +36,13 @@ Zimpl 是一种轻量化的特定领域语言 (little language)，用于将问�
 
 如果您在本手册中发现了任何错误、疑问或者可以优化的翻译内容，敬请为本项目提交一份 [Issue](https://gitee.com/BOXonline_1396529/zimpl-doc.zh_CN/issues/new/choose) 或 [Pull Request](https://gitee.com/BOXonline_1396529/zimpl-doc.zh_CN/pulls)，或者直接发送说明问题的电子邮件到本人的邮箱。
 
+## 耻辱柱
+
+本来不想加这个章节的，奈何真是太难崩了，实在是忍不住。当然，我能理解现在的 CSDN 就是这样的氛围，由于平台在中间有巨额的抽成，如果不靠上传垃圾资源来引流，仅仅通过有限的高质量内容赚来的 C 豆是不够自己下载资源的。所以我把这些挂在这里并不是针对某个用户。这说到底是我们开源界所有人的耻辱。
+
+- [“Zimpl语言指南：从模型到线性规划”](https://wenku.csdn.net/doc/2st7t0m7ou)，公然售卖开源文档。(Zimpl 手册遵循 GNU 宽通用许可证第三版发布。)
+- [“从零开始构建Zimpl应用：遵循最佳实践指南”](https://wenku.csdn.net/column/473zyzcb1w)，通篇都是 AI 生成的、前言不搭后语、牛头不对马嘴的垃圾文本，被 CSDN 通过搜索引擎优化挂在浏览器搜索结果的首页上。一直在污染我的 AI 网页搜索结果。
+
 ## 鸣谢
 
 感谢我的朋友 [白色竹鼠](https://github.com/MrDie2233)，他为本项目的第七章提供了一份准确的 AI 通篇翻译的对照版本，大大加快了我的翻译进度。
